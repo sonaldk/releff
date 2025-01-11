@@ -1,12 +1,13 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Navbar } from "@/components/Navbar";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="flex min-h-screen">
+      <Navbar />
+      <main className="flex-1 p-8">
+        <h1 className="text-4xl font-semibold mb-6">Dashboard</h1>
+        <p className="text-lg text-gray-600">Welcome to your workspace.</p>
+      </main>
     </div>
   );
 };
