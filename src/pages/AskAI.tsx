@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,7 @@ import { AITemplates } from "@/components/ai/AITemplates";
 import { AIResponse } from "@/components/ai/AIResponse";
 import { AIContext } from "@/components/ai/AIContext";
 import { aiTemplates } from "@/data/aiTemplates";
+import { generateAIResponse } from "@/lib/ai";
 import { toast } from "sonner";
 
 const AskAI = () => {
@@ -15,35 +16,23 @@ const AskAI = () => {
   const [query, setQuery] = useState("");
   const [response, setResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [contextData, setContextData] = useState<any>(null);
+  const [apiKey, setApiKey] = useState("");
 
-  useEffect(() => {
-    // In a real implementation, this would fetch data from your backend
-    // For now, we'll use mock data if we're on a contact route
-    if (id) {
-      const mockContactData = {
-        contactName: "John Smith",
-        organization: "Tech Corp",
-        lastInteraction: "2024-02-15",
-        engagementScore: "High (85%)",
-        recentMeetings: [
-          { date: "2024-02-15", subject: "Q2 Planning Discussion" },
-          { date: "2024-02-01", subject: "Product Review Meeting" },
-          { date: "2024-01-15", subject: "Initial Consultation" },
-        ],
-      };
-      setContextData(mockContactData);
-    }
-  }, [id]);
+  // Mock data - in a real app, this would come from your backend
+  const contextData = {
+    contactName: "John Smith",
+    organization: "Tech Corp",
+    lastInteraction: "2024-02-15",
+    engagementScore: "High (85%)",
+    recentMeetings: [
+      { date: "2024-02-15", subject: "Q2 Planning Discussion" },
+      { date: "2024-02-01", subject: "Product Review Meeting" },
+      { date: "2024-01-15", subject: "Initial Consultation" },
+    ],
+  };
 
   const handleTemplateSelect = (prompt: string) => {
-    // Enhance the prompt with context if available
-    if (contextData) {
-      const contextPrompt = `Context:\nContact: ${contextData.contactName}\nOrganization: ${contextData.organization}\nLast Interaction: ${contextData.lastInteraction}\nEngagement Score: ${contextData.engagementScore}\n\nRequest:\n${prompt}`;
-      setQuery(contextPrompt);
-    } else {
-      setQuery(prompt);
-    }
+    setQuery(prompt);
   };
 
   const handleSubmit = async () => {
@@ -52,18 +41,20 @@ const AskAI = () => {
       return;
     }
 
+    if (!apiKey) {
+      toast.error("Please enter your Perplexity API key");
+      return;
+    }
+
     setIsLoading(true);
     try {
-      // TODO: Implement AI query handling with your chosen provider
-      console.log("Sending query:", query);
-      // Temporary mock response
-      setTimeout(() => {
-        setResponse("This is a mock AI response. The actual AI integration will be implemented when connected to a backend service.");
-        setIsLoading(false);
-      }, 1000);
+      const aiResponse = await generateAIResponse(apiKey, {
+        message: query,
+        context: contextData,
+      });
+      setResponse(aiResponse);
     } catch (error) {
-      console.error("Error processing AI query:", error);
-      toast.error("Failed to process your request");
+      console.error("Error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -76,10 +67,10 @@ const AskAI = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 space-y-6">
           <AITemplates templates={aiTemplates} onSelect={handleTemplateSelect} />
           
-          <Card className="mt-8">
+          <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <MessageSquare className="h-6 w-6" />
@@ -87,6 +78,19 @@ const AskAI = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <label htmlFor="apiKey" className="text-sm font-medium">
+                  Perplexity API Key
+                </label>
+                <input
+                  id="apiKey"
+                  type="password"
+                  value={apiKey}
+                  onChange={(e) => setApiKey(e.target.value)}
+                  className="w-full px-3 py-2 border rounded-md"
+                  placeholder="Enter your Perplexity API key"
+                />
+              </div>
               <Textarea
                 placeholder="Ask anything about the organization or contact..."
                 value={query}
@@ -107,7 +111,7 @@ const AskAI = () => {
         </div>
 
         <div className="lg:col-span-1">
-          {contextData && <AIContext {...contextData} />}
+          <AIContext {...contextData} />
         </div>
       </div>
     </div>
