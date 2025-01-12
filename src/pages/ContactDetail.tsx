@@ -21,6 +21,15 @@ const mockContactData = {
     influence: "Key Decision Maker",
     riskIndex: "Low",
     customerSatisfaction: "95%",
+    deepestRelationship: "Mike Johnson (15 years)",
+    broadestRelationship: "Sarah Williams (8 departments)",
+    relationshipScore: "92/100",
+    interactionMetrics: {
+      deals: 12,
+      emails: 450,
+      calls: 85,
+      meetings: 24
+    },
     recentEmails: [
       {
         date: "Mar 15, 2024",
@@ -77,6 +86,15 @@ const mockContactData = {
     influence: "Influencer",
     riskIndex: "Medium",
     customerSatisfaction: "88%",
+    deepestRelationship: "John Doe (8 years)",
+    broadestRelationship: "Alex Thompson (5 departments)",
+    relationshipScore: "78/100",
+    interactionMetrics: {
+      deals: 8,
+      emails: 320,
+      calls: 45,
+      meetings: 16
+    },
     recentEmails: [
       {
         date: "Feb 10, 2024",
@@ -133,6 +151,15 @@ const mockContactData = {
     influence: "Key Influencer",
     riskIndex: "Low",
     customerSatisfaction: "92%",
+    deepestRelationship: "Bob White (12 years)",
+    broadestRelationship: "Alice Brown (7 departments)",
+    relationshipScore: "88/100",
+    interactionMetrics: {
+      deals: 15,
+      emails: 580,
+      calls: 92,
+      meetings: 28
+    },
     recentEmails: [
       {
         date: "Feb 12, 2024",
@@ -203,6 +230,10 @@ const ContactDetail = () => {
         organizationContact={contact.organizationContact}
         riskIndex={contact.riskIndex}
         customerSatisfaction={contact.customerSatisfaction}
+        deepestRelationship={contact.deepestRelationship}
+        broadestRelationship={contact.broadestRelationship}
+        relationshipScore={contact.relationshipScore}
+        interactionMetrics={contact.interactionMetrics}
       />
 
       <RecentEmails emails={contact.recentEmails} />
