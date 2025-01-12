@@ -1,107 +1,98 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Users, UserPlus, UserCheck, DollarSign } from "lucide-react";
+import { Users, Mail, PhoneCall, Building } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 // Mock data for demonstration
 const summaryData = {
-  totalEmployees: 1250,
-  newHires: 45,
-  retentionRate: 95,
-  avgSalary: 85000,
+  totalContacts: 850,
+  activeEngagements: 245,
+  responseRate: 78,
+  organizationsCount: 120,
 };
 
-const employeeData = [
+const contactData = [
   {
     name: "John Smith",
-    department: "Engineering",
-    role: "Senior Developer",
-    tenure: "3 years",
-    performance: "Excellent",
-    engagement: "High",
+    organization: "Tech Corp",
+    role: "Chief Technology Officer",
+    lastContact: "2 days ago",
+    engagementLevel: "High",
+    status: "Active",
   },
   {
     name: "Sarah Johnson",
-    department: "Marketing",
-    role: "Marketing Manager",
-    tenure: "2 years",
-    performance: "Good",
-    engagement: "Medium",
+    organization: "Marketing Pro",
+    role: "Marketing Director",
+    lastContact: "1 week ago",
+    engagementLevel: "Medium",
+    status: "Active",
   },
   {
     name: "Michael Chen",
-    department: "Product",
-    role: "Product Owner",
-    tenure: "4 years",
-    performance: "Excellent",
-    engagement: "High",
+    organization: "Innovation Labs",
+    role: "Product Director",
+    lastContact: "3 days ago",
+    engagementLevel: "High",
+    status: "Active",
   },
   {
     name: "Emily Davis",
-    department: "Sales",
-    role: "Account Executive",
-    tenure: "1 year",
-    performance: "Good",
-    engagement: "High",
+    organization: "Sales Direct",
+    role: "VP Sales",
+    lastContact: "5 days ago",
+    engagementLevel: "High",
+    status: "Active",
   },
   {
     name: "James Wilson",
-    department: "Engineering",
-    role: "DevOps Engineer",
-    tenure: "2 years",
-    performance: "Good",
-    engagement: "Medium",
+    organization: "Tech Solutions",
+    role: "Engineering Manager",
+    lastContact: "2 weeks ago",
+    engagementLevel: "Medium",
+    status: "Inactive",
   },
   {
     name: "Lisa Anderson",
-    department: "HR",
-    role: "HR Manager",
-    tenure: "5 years",
-    performance: "Excellent",
-    engagement: "High",
+    organization: "Global Corp",
+    role: "HR Director",
+    lastContact: "1 month ago",
+    engagementLevel: "Low",
+    status: "Inactive",
   },
   {
     name: "Robert Taylor",
-    department: "Finance",
-    role: "Financial Analyst",
-    tenure: "2 years",
-    performance: "Good",
-    engagement: "Medium",
+    organization: "Finance Plus",
+    role: "CFO",
+    lastContact: "1 week ago",
+    engagementLevel: "Medium",
+    status: "Active",
   },
   {
     name: "Maria Garcia",
-    department: "Engineering",
-    role: "Frontend Developer",
-    tenure: "1 year",
-    performance: "Good",
-    engagement: "High",
+    organization: "Tech Giants",
+    role: "Technical Lead",
+    lastContact: "4 days ago",
+    engagementLevel: "High",
+    status: "Active",
   },
   {
     name: "David Lee",
-    department: "Product",
-    role: "UX Designer",
-    tenure: "3 years",
-    performance: "Excellent",
-    engagement: "High",
+    organization: "Design Co",
+    role: "Design Director",
+    lastContact: "3 days ago",
+    engagementLevel: "High",
+    status: "Active",
   },
   {
     name: "Anna Kim",
-    department: "Marketing",
-    role: "Content Strategist",
-    tenure: "2 years",
-    performance: "Good",
-    engagement: "Medium",
+    organization: "Market Leaders",
+    role: "Strategy Head",
+    lastContact: "1 week ago",
+    engagementLevel: "Medium",
+    status: "Active",
   },
 ];
-
-const getPerformanceColor = (performance: string) => {
-  const colors = {
-    Excellent: "text-green-600 bg-green-100",
-    Good: "text-blue-600 bg-blue-100",
-    "Needs Improvement": "text-red-600 bg-red-100",
-  };
-  return colors[performance as keyof typeof colors] || "text-gray-600 bg-gray-100";
-};
 
 const getEngagementColor = (engagement: string) => {
   const colors = {
@@ -112,108 +103,105 @@ const getEngagementColor = (engagement: string) => {
   return colors[engagement as keyof typeof colors] || "text-gray-600 bg-gray-100";
 };
 
-const formatCurrency = (amount: number) => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(amount);
+const getStatusColor = (status: string) => {
+  const colors = {
+    Active: "text-green-600 bg-green-100",
+    Inactive: "text-red-600 bg-red-100",
+  };
+  return colors[status as keyof typeof colors] || "text-gray-600 bg-gray-100";
 };
 
 const People = () => {
   const navigate = useNavigate();
 
-  const handleRowClick = (employeeName: string) => {
-    // For demo purposes, using the employee name as ID
-    // In production, use actual employee IDs
-    const employeeId = employeeName.toLowerCase().replace(/\s+/g, '-');
-    navigate(`/employee/${employeeId}`);
+  const handleRowClick = (contactName: string) => {
+    const contactId = contactName.toLowerCase().replace(/\s+/g, '-');
+    navigate(`/contact/${contactId}`);
   };
 
   return (
     <div className="flex-1 p-8 bg-gray-50">
-      <h1 className="text-4xl font-semibold mb-6">People</h1>
+      <h1 className="text-4xl font-semibold mb-6">Client Contacts</h1>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
         <Card className="glass-effect">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xl font-medium">Total Employees</CardTitle>
+            <CardTitle className="text-xl font-medium">Total Contacts</CardTitle>
             <Users className="h-5 w-5 text-gray-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">{summaryData.totalEmployees}</div>
+            <div className="text-3xl font-bold">{summaryData.totalContacts}</div>
           </CardContent>
         </Card>
 
         <Card className="glass-effect">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xl font-medium">New Hires (YTD)</CardTitle>
-            <UserPlus className="h-5 w-5 text-gray-500" />
+            <CardTitle className="text-xl font-medium">Active Engagements</CardTitle>
+            <Mail className="h-5 w-5 text-gray-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">{summaryData.newHires}</div>
+            <div className="text-3xl font-bold">{summaryData.activeEngagements}</div>
           </CardContent>
         </Card>
 
         <Card className="glass-effect">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xl font-medium">Retention Rate</CardTitle>
-            <UserCheck className="h-5 w-5 text-gray-500" />
+            <CardTitle className="text-xl font-medium">Response Rate</CardTitle>
+            <PhoneCall className="h-5 w-5 text-gray-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">{summaryData.retentionRate}%</div>
+            <div className="text-3xl font-bold">{summaryData.responseRate}%</div>
           </CardContent>
         </Card>
 
         <Card className="glass-effect">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xl font-medium">Avg. Salary</CardTitle>
-            <DollarSign className="h-5 w-5 text-gray-500" />
+            <CardTitle className="text-xl font-medium">Organizations</CardTitle>
+            <Building className="h-5 w-5 text-gray-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">{formatCurrency(summaryData.avgSalary)}</div>
+            <div className="text-3xl font-bold">{summaryData.organizationsCount}</div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Employees Table */}
+      {/* Contacts Table */}
       <Card className="glass-effect">
         <CardHeader>
-          <CardTitle>Employee List</CardTitle>
+          <CardTitle>Contact List</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Employee Name</TableHead>
-                <TableHead>Department</TableHead>
+                <TableHead>Contact Name</TableHead>
+                <TableHead>Organization</TableHead>
                 <TableHead>Role</TableHead>
-                <TableHead>Tenure</TableHead>
-                <TableHead>Performance</TableHead>
-                <TableHead>Engagement</TableHead>
+                <TableHead>Last Contact</TableHead>
+                <TableHead>Engagement Level</TableHead>
+                <TableHead>Status</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {employeeData.map((employee, index) => (
+              {contactData.map((contact, index) => (
                 <TableRow 
                   key={index}
                   className="cursor-pointer hover:bg-gray-50"
-                  onClick={() => handleRowClick(employee.name)}
+                  onClick={() => handleRowClick(contact.name)}
                 >
-                  <TableCell className="font-medium">{employee.name}</TableCell>
-                  <TableCell>{employee.department}</TableCell>
-                  <TableCell>{employee.role}</TableCell>
-                  <TableCell>{employee.tenure}</TableCell>
+                  <TableCell className="font-medium">{contact.name}</TableCell>
+                  <TableCell>{contact.organization}</TableCell>
+                  <TableCell>{contact.role}</TableCell>
+                  <TableCell>{contact.lastContact}</TableCell>
                   <TableCell>
-                    <span className={`px-2 py-1 rounded-full text-sm ${getPerformanceColor(employee.performance)}`}>
-                      {employee.performance}
+                    <span className={`px-2 py-1 rounded-full text-sm ${getEngagementColor(contact.engagementLevel)}`}>
+                      {contact.engagementLevel}
                     </span>
                   </TableCell>
                   <TableCell>
-                    <span className={`px-2 py-1 rounded-full text-sm ${getEngagementColor(employee.engagement)}`}>
-                      {employee.engagement}
+                    <span className={`px-2 py-1 rounded-full text-sm ${getStatusColor(contact.status)}`}>
+                      {contact.status}
                     </span>
                   </TableCell>
                 </TableRow>
