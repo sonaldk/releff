@@ -18,7 +18,7 @@ function App() {
           <Route path="/client/:id" element={<ClientDetail />} />
           <Route path="/people" element={<People />} />
           <Route path="/contact/:id" element={<ContactDetail />} />
-          <Route path="/ask-ai/:type/:id" element={<AskAI />} />
+          <Route path="/ask-ai" element={<AskAI />} />
         </Routes>
       </div>
     </Router>

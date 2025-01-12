@@ -15,7 +15,7 @@ const navItems = [
   { path: "/", label: "Dashboard", icon: LayoutDashboard },
   { path: "/organisation", label: "Organisation", icon: Building2 },
   { path: "/people", label: "People", icon: Users },
-  { path: "/ask", label: "Ask Anything", icon: MessageSquareMore },
+  { path: "/ask-ai", label: "Ask AI", icon: MessageSquareMore },
   { path: "/integrations", label: "Integrations", icon: Cable },
 ];
 
