@@ -3,6 +3,7 @@ import Index from "./pages/Index";
 import Organisation from "./pages/Organisation";
 import ClientDetail from "./pages/ClientDetail";
 import People from "./pages/People";
+import ContactDetail from "./pages/ContactDetail";
 import { Navbar } from "./components/Navbar";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path="/organisation" element={<Organisation />} />
           <Route path="/client/:id" element={<ClientDetail />} />
           <Route path="/people" element={<People />} />
+          <Route path="/contact/:id" element={<ContactDetail />} />
         </Routes>
       </div>
     </Router>
