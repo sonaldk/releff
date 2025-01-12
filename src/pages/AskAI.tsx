@@ -8,7 +8,7 @@ import { AIResponse } from "@/components/ai/AIResponse";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { getTemplatesForContact, getTemplatesForOrganization } from "@/utils/aiTemplates";
-import { mockContactData } from "./ContactDetail"; // We'll use the mock data for now
+import { mockContactData } from "@/data/mockData";
 
 const AskAI = () => {
   const { type, id } = useParams();

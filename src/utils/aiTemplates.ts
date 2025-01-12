@@ -64,7 +64,10 @@ export const getTemplatesForContact = (contactData: any): Template[] => [
 ];
 
 export const getTemplatesForOrganization = (orgData: any): Template[] => [
-  // Similar templates for organization context
-  // Will implement when needed
-  []
+  {
+    title: "Organization Overview",
+    description: "Generate a comprehensive overview of the organization",
+    icon: FileSearch,
+    prompt: "Create a detailed overview of the organization including key metrics and relationships"
+  }
 ];
