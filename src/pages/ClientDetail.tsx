@@ -168,9 +168,11 @@ const ClientDetail = () => {
                 <PieChart>
                   <Pie
                     data={[
-                      { value: clientData.metrics.clientScore },
-                      { value: 100 - clientData.metrics.clientScore },
+                      { value: clientData.metrics.clientScore, name: "Score" },
+                      { value: 100 - clientData.metrics.clientScore, name: "Remaining" }
                     ]}
+                    dataKey="value"
+                    nameKey="name"
                     cx="50%"
                     cy="50%"
                     innerRadius={60}
@@ -229,9 +231,11 @@ const ClientDetail = () => {
                 <PieChart>
                   <Pie
                     data={[
-                      { value: clientData.metrics.responseRate },
-                      { value: 100 - clientData.metrics.responseRate },
+                      { value: clientData.metrics.responseRate, name: "Rate" },
+                      { value: 100 - clientData.metrics.responseRate, name: "Remaining" }
                     ]}
+                    dataKey="value"
+                    nameKey="name"
                     cx="50%"
                     cy="50%"
                     innerRadius={60}
@@ -270,9 +274,11 @@ const ClientDetail = () => {
                 <PieChart>
                   <Pie
                     data={[
-                      { value: clientData.metrics.intentScore },
-                      { value: 100 - clientData.metrics.intentScore },
+                      { value: clientData.metrics.intentScore, name: "Score" },
+                      { value: 100 - clientData.metrics.intentScore, name: "Remaining" }
                     ]}
+                    dataKey="value"
+                    nameKey="name"
                     cx="50%"
                     cy="50%"
                     innerRadius={60}
