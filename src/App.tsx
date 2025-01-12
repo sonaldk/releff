@@ -6,6 +6,7 @@ import People from "./pages/People";
 import AskAI from "./pages/AskAI";
 import Integrations from "./pages/Integrations";
 import ClientDetail from "./pages/ClientDetail";
+import ContactDetail from "./pages/ContactDetail";
 import "./App.css";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route path="/ask-ai" element={<AskAI />} />
             <Route path="/integrations" element={<Integrations />} />
             <Route path="/client/:id" element={<ClientDetail />} />
+            <Route path="/contact/:id" element={<ContactDetail />} />
           </Routes>
         </div>
       </div>

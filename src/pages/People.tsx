@@ -115,6 +115,7 @@ const People = () => {
   const navigate = useNavigate();
 
   const handleRowClick = (contactName: string) => {
+    // Convert contact name to URL-friendly format
     const contactId = contactName.toLowerCase().replace(/\s+/g, '-');
     navigate(`/contact/${contactId}`);
   };
