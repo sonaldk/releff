@@ -4,7 +4,6 @@ import { ContactEngagementMetrics } from "@/components/contact/ContactEngagement
 import { RecentEmails } from "@/components/contact/RecentEmails";
 import { EngagementCharts } from "@/components/contact/EngagementCharts";
 
-// Mock database of clients - in a real app, this would come from an API
 const clientsDatabase = {
   "techcorp-solutions": {
     name: "TechCorp Solutions",
@@ -18,6 +17,8 @@ const clientsDatabase = {
     sentiment: "Positive",
     influence: "High",
     organizationContact: "Primary",
+    riskIndex: "Low",
+    customerSatisfaction: "92%",
     emails: [
       {
         date: "2024-02-15",
@@ -50,6 +51,8 @@ const clientsDatabase = {
     sentiment: "Good",
     influence: "Medium",
     organizationContact: "Primary",
+    riskIndex: "Medium",
+    customerSatisfaction: "85%",
     emails: [
       {
         date: "2024-02-14",
@@ -277,10 +280,8 @@ const clientsDatabase = {
 const ClientDetail = () => {
   const { id } = useParams();
   
-  // Get client data based on the URL parameter
   const clientData = id ? clientsDatabase[id as keyof typeof clientsDatabase] : null;
 
-  // If client not found, show error message
   if (!clientData) {
     return (
       <div className="p-8">
@@ -306,6 +307,8 @@ const ClientDetail = () => {
         sentiment={clientData.sentiment}
         influence={clientData.influence}
         organizationContact={clientData.organizationContact}
+        riskIndex={clientData.riskIndex}
+        customerSatisfaction={clientData.customerSatisfaction}
       />
 
       <div className="grid grid-cols-1 gap-6">

@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, Calendar, MessageSquare, TrendingUp, Heart, Gauge } from "lucide-react";
+import { Users, Calendar, MessageSquare, TrendingUp, Heart, Gauge, AlertTriangle, SmilePlus } from "lucide-react";
 
 interface ContactMetricsProps {
   lastMeeting: string;
@@ -9,6 +9,8 @@ interface ContactMetricsProps {
   sentiment: string;
   influence: string;
   organizationContact: string;
+  riskIndex: string;
+  customerSatisfaction: string;
 }
 
 const MetricCard = memo(({ title, value, icon: Icon }: { title: string; value: string; icon: any }) => (
@@ -32,12 +34,16 @@ export const ContactEngagementMetrics = memo(({
   sentiment,
   influence,
   organizationContact,
+  riskIndex,
+  customerSatisfaction,
 }: ContactMetricsProps) => {
   const metrics = [
     { title: "Organization Contact", value: organizationContact, icon: Users },
     { title: "Last Meeting", value: lastMeeting, icon: Calendar },
     { title: "Last Contact", value: lastContactPerson, icon: MessageSquare },
     { title: "Engagement Score", value: engagementScore, icon: Gauge },
+    { title: "Risk Index", value: riskIndex, icon: AlertTriangle },
+    { title: "Customer Satisfaction", value: customerSatisfaction, icon: SmilePlus },
     { title: "Sentiment", value: sentiment, icon: Heart },
     { title: "Influence Level", value: influence, icon: TrendingUp },
   ];
