@@ -46,7 +46,7 @@ const AskAI = () => {
   };
 
   return (
-    <div className="container max-w-4xl mx-auto p-8 space-y-8">
+    <div className="container max-w-3xl mx-auto p-8 space-y-8">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-semibold">Ask AI Assistant</h1>
       </div>
