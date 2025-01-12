@@ -8,7 +8,7 @@ export const TopNav = () => {
     <nav className="w-full h-14 glass-effect border-b border-nav-border px-4 flex items-center justify-between fixed top-0 left-0 z-50">
       <div className="flex items-center gap-2">
         <AlignLeft className="h-5 w-5" />
-        <span className="font-semibold text-lg">Orga Connect Hub</span>
+        <span className="font-semibold text-lg">Releff</span>
       </div>
       
       <div className="flex items-center gap-4">
