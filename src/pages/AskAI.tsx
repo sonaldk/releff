@@ -68,8 +68,6 @@ const AskAI = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-6">
-          <AITemplates templates={aiTemplates} onSelect={handleTemplateSelect} />
-          
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -108,6 +106,11 @@ const AskAI = () => {
           </Card>
 
           {response && <AIResponse response={response} />}
+
+          <div className="bg-white rounded-lg shadow p-6">
+            <h2 className="text-xl font-semibold mb-4">Common Templates</h2>
+            <AITemplates templates={aiTemplates} onSelect={handleTemplateSelect} />
+          </div>
         </div>
 
         <div className="lg:col-span-1">
