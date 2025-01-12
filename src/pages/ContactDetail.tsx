@@ -1,20 +1,13 @@
-import { ArrowLeft, Building2, Mail, Phone, Calendar, MessageSquare, X } from "lucide-react";
+import { ArrowLeft, Building2, Mail, Phone, Calendar, X } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ContactEngagementMetrics } from "@/components/contact/ContactEngagementMetrics";
+import { RecentEmails } from "@/components/contact/RecentEmails";
 import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  LineChart,
-  Line
+  AreaChart, Area, XAxis, YAxis, CartesianGrid, 
+  Tooltip, ResponsiveContainer, BarChart, Bar, 
+  LineChart, Line
 } from "recharts";
-import { useState } from "react";
 
 // Mock data for demonstration
 const mockContactData = {
@@ -25,6 +18,44 @@ const mockContactData = {
     email: "john.smith@techcorp.com",
     phone: "+1 (555) 123-4567",
     lastContact: "2024-02-15",
+    organizationContact: "Sarah Williams",
+    lastMeeting: "March 15, 2024",
+    lastContactPerson: "Mike Johnson",
+    engagementScore: "High (85%)",
+    sentiment: "Very Positive",
+    influence: "Key Decision Maker",
+    recentEmails: [
+      {
+        date: "Mar 15, 2024",
+        subject: "Q2 Planning Meeting Notes",
+        from: "Mike Johnson",
+        hasAttachment: true
+      },
+      {
+        date: "Mar 10, 2024",
+        subject: "Product Roadmap Review",
+        from: "Sarah Williams",
+        hasAttachment: true
+      },
+      {
+        date: "Mar 5, 2024",
+        subject: "Follow-up: Technical Discussion",
+        from: "Mike Johnson",
+        hasAttachment: false
+      },
+      {
+        date: "Mar 1, 2024",
+        subject: "Partnership Opportunity",
+        from: "Sarah Williams",
+        hasAttachment: true
+      },
+      {
+        date: "Feb 25, 2024",
+        subject: "Weekly Update",
+        from: "Mike Johnson",
+        hasAttachment: false
+      }
+    ],
     engagementHistory: [
       { month: "Jan", score: 85, meetings: 4, responses: 90 },
       { month: "Feb", score: 88, meetings: 5, responses: 85 },
@@ -41,6 +72,44 @@ const mockContactData = {
     email: "sarah.j@marketingpro.com",
     phone: "+1 (555) 234-5678",
     lastContact: "2024-02-10",
+    organizationContact: "John Doe",
+    lastMeeting: "February 5, 2024",
+    lastContactPerson: "Jane Smith",
+    engagementScore: "Medium (70%)",
+    sentiment: "Positive",
+    influence: "Influencer",
+    recentEmails: [
+      {
+        date: "Feb 10, 2024",
+        subject: "Marketing Strategy Discussion",
+        from: "Jane Smith",
+        hasAttachment: false
+      },
+      {
+        date: "Feb 5, 2024",
+        subject: "Follow-up on Campaign",
+        from: "John Doe",
+        hasAttachment: true
+      },
+      {
+        date: "Jan 30, 2024",
+        subject: "Weekly Check-in",
+        from: "Jane Smith",
+        hasAttachment: false
+      },
+      {
+        date: "Jan 25, 2024",
+        subject: "Q1 Goals Review",
+        from: "John Doe",
+        hasAttachment: true
+      },
+      {
+        date: "Jan 20, 2024",
+        subject: "Feedback on Proposal",
+        from: "Jane Smith",
+        hasAttachment: false
+      }
+    ],
     engagementHistory: [
       { month: "Jan", score: 82, meetings: 3, responses: 88 },
       { month: "Feb", score: 85, meetings: 4, responses: 90 },
@@ -57,6 +126,44 @@ const mockContactData = {
     email: "m.chen@innovationlabs.com",
     phone: "+1 (555) 345-6789",
     lastContact: "2024-02-12",
+    organizationContact: "Alice Brown",
+    lastMeeting: "February 10, 2024",
+    lastContactPerson: "Bob White",
+    engagementScore: "High (90%)",
+    sentiment: "Very Positive",
+    influence: "Key Influencer",
+    recentEmails: [
+      {
+        date: "Feb 12, 2024",
+        subject: "Product Launch Update",
+        from: "Bob White",
+        hasAttachment: true
+      },
+      {
+        date: "Feb 10, 2024",
+        subject: "Feedback on Prototype",
+        from: "Alice Brown",
+        hasAttachment: false
+      },
+      {
+        date: "Feb 5, 2024",
+        subject: "Weekly Sync",
+        from: "Bob White",
+        hasAttachment: true
+      },
+      {
+        date: "Feb 1, 2024",
+        subject: "Q2 Planning",
+        from: "Alice Brown",
+        hasAttachment: false
+      },
+      {
+        date: "Jan 28, 2024",
+        subject: "Follow-up on Features",
+        from: "Bob White",
+        hasAttachment: true
+      }
+    ],
     engagementHistory: [
       { month: "Jan", score: 88, meetings: 5, responses: 92 },
       { month: "Feb", score: 90, meetings: 6, responses: 94 },
@@ -71,8 +178,6 @@ const mockContactData = {
 const ContactDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [selectedYear] = useState("2024");
-
   const contact = mockContactData[id as keyof typeof mockContactData];
 
   if (!contact) {
@@ -97,7 +202,7 @@ const ContactDetail = () => {
         </button>
       </div>
 
-      {/* Contact Information */}
+      {/* Basic Contact Information */}
       <Card className="mb-8 glass-effect">
         <CardHeader>
           <CardTitle className="text-2xl font-bold">{contact.name}</CardTitle>
@@ -124,21 +229,21 @@ const ContactDetail = () => {
         </CardContent>
       </Card>
 
-      {/* Year Filter */}
-      <div className="mb-4">
-        <select
-          value={selectedYear}
-          onChange={(e) => e.target.value}
-          className="border rounded-md px-3 py-2"
-        >
-          <option value="2024">2024</option>
-          <option value="2023">2023</option>
-        </select>
-      </div>
+      {/* Engagement Metrics */}
+      <ContactEngagementMetrics
+        lastMeeting={contact.lastMeeting}
+        lastContactPerson={contact.lastContactPerson}
+        engagementScore={contact.engagementScore}
+        sentiment={contact.sentiment}
+        influence={contact.influence}
+        organizationContact={contact.organizationContact}
+      />
+
+      {/* Recent Emails */}
+      <RecentEmails emails={contact.recentEmails} />
 
       {/* Charts Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Engagement Score Chart */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
         <Card className="glass-effect">
           <CardHeader>
             <CardTitle>Engagement Score</CardTitle>
@@ -202,37 +307,6 @@ const ContactDetail = () => {
           </CardContent>
         </Card>
       </div>
-
-      {/* Communication History */}
-      <Card className="mt-8 glass-effect">
-        <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle>Communication History</CardTitle>
-          <MessageSquare className="h-5 w-5 text-gray-500" />
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {/* Add communication history items here */}
-            <div className="border-b pb-4">
-              <div className="flex justify-between items-center">
-                <div>
-                  <p className="font-medium">Project Update Meeting</p>
-                  <p className="text-sm text-gray-500">Discussion about Q1 goals and technical roadmap</p>
-                </div>
-                <span className="text-sm text-gray-500">Feb 15, 2024</span>
-              </div>
-            </div>
-            <div className="border-b pb-4">
-              <div className="flex justify-between items-center">
-                <div>
-                  <p className="font-medium">Email Follow-up</p>
-                  <p className="text-sm text-gray-500">Sent documentation for new features</p>
-                </div>
-                <span className="text-sm text-gray-500">Feb 10, 2024</span>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 };
