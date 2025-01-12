@@ -20,6 +20,15 @@ const clientsDatabase = {
     organizationContact: "Primary",
     riskIndex: "Low",
     customerSatisfaction: "92%",
+    deepestRelationship: "Sarah Johnson (Account Manager)",
+    broadestRelationship: "Michael Chen (Solutions Architect)",
+    relationshipScore: "87/100",
+    interactionMetrics: {
+      deals: 5,
+      emails: 234,
+      calls: 45,
+      meetings: 12
+    },
     emails: [
       {
         date: "2024-02-15",
@@ -54,6 +63,15 @@ const clientsDatabase = {
     organizationContact: "Primary",
     riskIndex: "Medium",
     customerSatisfaction: "85%",
+    deepestRelationship: "Michael Brown (Account Manager)",
+    broadestRelationship: "Sarah Johnson (Sales)",
+    relationshipScore: "75/100",
+    interactionMetrics: {
+      deals: 3,
+      emails: 120,
+      calls: 30,
+      meetings: 8
+    },
     emails: [
       {
         date: "2024-02-14",
@@ -82,6 +100,15 @@ const clientsDatabase = {
     organizationContact: "Secondary",
     riskIndex: "Low",
     customerSatisfaction: "94%",
+    deepestRelationship: "Emma Watson (Project Lead)",
+    broadestRelationship: "John Doe (Technical)",
+    relationshipScore: "90/100",
+    interactionMetrics: {
+      deals: 10,
+      emails: 300,
+      calls: 50,
+      meetings: 15
+    },
     emails: [
       {
         date: "2024-02-13",
@@ -110,6 +137,15 @@ const clientsDatabase = {
     organizationContact: "Primary",
     riskIndex: "Medium",
     customerSatisfaction: "87%",
+    deepestRelationship: "David Chen (Account Manager)",
+    broadestRelationship: "Lisa Park (Sales)",
+    relationshipScore: "80/100",
+    interactionMetrics: {
+      deals: 4,
+      emails: 150,
+      calls: 25,
+      meetings: 10
+    },
     emails: [
       {
         date: "2024-02-12",
@@ -138,6 +174,15 @@ const clientsDatabase = {
     organizationContact: "Primary",
     riskIndex: "Low",
     customerSatisfaction: "96%",
+    deepestRelationship: "Lisa Park (Account Manager)",
+    broadestRelationship: "Tom Baker (Support)",
+    relationshipScore: "93/100",
+    interactionMetrics: {
+      deals: 6,
+      emails: 200,
+      calls: 40,
+      meetings: 14
+    },
     emails: [
       {
         date: "2024-02-11",
@@ -166,6 +211,15 @@ const clientsDatabase = {
     organizationContact: "Secondary",
     riskIndex: "Medium",
     customerSatisfaction: "89%",
+    deepestRelationship: "James Wilson (Account Manager)",
+    broadestRelationship: "Sarah Johnson (Sales)",
+    relationshipScore: "85/100",
+    interactionMetrics: {
+      deals: 5,
+      emails: 250,
+      calls: 60,
+      meetings: 20
+    },
     emails: [
       {
         date: "2024-02-10",
@@ -194,6 +248,15 @@ const clientsDatabase = {
     organizationContact: "Primary",
     riskIndex: "Low",
     customerSatisfaction: "91%",
+    deepestRelationship: "Alex Thompson (Account Manager)",
+    broadestRelationship: "Michael Chen (Sales)",
+    relationshipScore: "88/100",
+    interactionMetrics: {
+      deals: 7,
+      emails: 300,
+      calls: 70,
+      meetings: 18
+    },
     emails: [
       {
         date: "2024-02-09",
@@ -222,6 +285,15 @@ const clientsDatabase = {
     organizationContact: "Primary",
     riskIndex: "Low",
     customerSatisfaction: "93%",
+    deepestRelationship: "Rachel Green (Account Manager)",
+    broadestRelationship: "Tom Baker (Sales)",
+    relationshipScore: "90/100",
+    interactionMetrics: {
+      deals: 8,
+      emails: 400,
+      calls: 80,
+      meetings: 22
+    },
     emails: [
       {
         date: "2024-02-08",
@@ -250,6 +322,15 @@ const clientsDatabase = {
     organizationContact: "Secondary",
     riskIndex: "High",
     customerSatisfaction: "78%",
+    deepestRelationship: "Tom Baker (Account Manager)",
+    broadestRelationship: "Sarah Johnson (Sales)",
+    relationshipScore: "75/100",
+    interactionMetrics: {
+      deals: 4,
+      emails: 180,
+      calls: 40,
+      meetings: 10
+    },
     emails: [
       {
         date: "2024-02-07",
@@ -278,6 +359,15 @@ const clientsDatabase = {
     organizationContact: "Primary",
     riskIndex: "Medium",
     customerSatisfaction: "85%",
+    deepestRelationship: "Sophie Martinez (Account Manager)",
+    broadestRelationship: "James Wilson (Sales)",
+    relationshipScore: "84/100",
+    interactionMetrics: {
+      deals: 5,
+      emails: 220,
+      calls: 50,
+      meetings: 12
+    },
     emails: [
       {
         date: "2024-02-06",
@@ -326,15 +416,10 @@ const ClientDetail = () => {
         organizationContact={clientData.organizationContact}
         riskIndex={clientData.riskIndex}
         customerSatisfaction={clientData.customerSatisfaction}
-        deepestRelationship="Sarah Johnson (Account Manager)"
-        broadestRelationship="Michael Chen (Solutions Architect)"
-        relationshipScore="87"
-        interactionMetrics={{
-          deals: 5,
-          emails: 234,
-          calls: 45,
-          meetings: 12
-        }}
+        deepestRelationship={clientData.deepestRelationship}
+        broadestRelationship={clientData.broadestRelationship}
+        relationshipScore={clientData.relationshipScore}
+        interactionMetrics={clientData.interactionMetrics}
       />
 
       <div className="grid grid-cols-1 gap-6">
