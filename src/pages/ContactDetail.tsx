@@ -21,7 +21,7 @@ const mockContactData = {
   "john-smith": {
     name: "John Smith",
     role: "Chief Technology Officer",
-    organization: "TechCorp Solutions",
+    organization: "Tech Corp",
     email: "john.smith@techcorp.com",
     phone: "+1 (555) 123-4567",
     lastContact: "2024-02-15",
@@ -32,6 +32,38 @@ const mockContactData = {
       { month: "Apr", score: 90, meetings: 4, responses: 88 },
       { month: "May", score: 95, meetings: 7, responses: 92 },
       { month: "Jun", score: 89, meetings: 5, responses: 87 }
+    ]
+  },
+  "sarah-johnson": {
+    name: "Sarah Johnson",
+    role: "Marketing Director",
+    organization: "Marketing Pro",
+    email: "sarah.j@marketingpro.com",
+    phone: "+1 (555) 234-5678",
+    lastContact: "2024-02-10",
+    engagementHistory: [
+      { month: "Jan", score: 82, meetings: 3, responses: 88 },
+      { month: "Feb", score: 85, meetings: 4, responses: 90 },
+      { month: "Mar", score: 88, meetings: 5, responses: 92 },
+      { month: "Apr", score: 86, meetings: 4, responses: 89 },
+      { month: "May", score: 90, meetings: 6, responses: 94 },
+      { month: "Jun", score: 87, meetings: 4, responses: 91 }
+    ]
+  },
+  "michael-chen": {
+    name: "Michael Chen",
+    role: "Product Director",
+    organization: "Innovation Labs",
+    email: "m.chen@innovationlabs.com",
+    phone: "+1 (555) 345-6789",
+    lastContact: "2024-02-12",
+    engagementHistory: [
+      { month: "Jan", score: 88, meetings: 5, responses: 92 },
+      { month: "Feb", score: 90, meetings: 6, responses: 94 },
+      { month: "Mar", score: 93, meetings: 7, responses: 96 },
+      { month: "Apr", score: 91, meetings: 5, responses: 93 },
+      { month: "May", score: 94, meetings: 8, responses: 95 },
+      { month: "Jun", score: 92, meetings: 6, responses: 94 }
     ]
   }
 };
