@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
+import { TopNav } from "./components/TopNav";
 import Index from "./pages/Index";
 import Organisation from "./pages/Organisation";
 import People from "./pages/People";
@@ -15,18 +16,21 @@ function App() {
 
   return (
     <Router>
-      <div className={`flex ${isMobile ? 'flex-col' : ''}`}>
-        <Navbar />
-        <div className={`flex-1 ${isMobile ? 'w-full' : ''}`}>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/organisation" element={<Organisation />} />
-            <Route path="/people" element={<People />} />
-            <Route path="/ask-ai" element={<AskAI />} />
-            <Route path="/integrations" element={<Integrations />} />
-            <Route path="/client/:id" element={<ClientDetail />} />
-            <Route path="/contact/:id" element={<ContactDetail />} />
-          </Routes>
+      <div className="min-h-screen">
+        <TopNav />
+        <div className={`flex ${isMobile ? 'flex-col' : ''} pt-14`}>
+          <Navbar />
+          <div className={`flex-1 ${isMobile ? 'w-full' : ''}`}>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/organisation" element={<Organisation />} />
+              <Route path="/people" element={<People />} />
+              <Route path="/ask-ai" element={<AskAI />} />
+              <Route path="/integrations" element={<Integrations />} />
+              <Route path="/client/:id" element={<ClientDetail />} />
+              <Route path="/contact/:id" element={<ContactDetail />} />
+            </Routes>
+          </div>
         </div>
       </div>
     </Router>
