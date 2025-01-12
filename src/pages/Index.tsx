@@ -1,4 +1,3 @@
-import { Navbar } from "@/components/Navbar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -59,12 +58,10 @@ const getStatusColor = (status: string) => {
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen">
-      <Navbar />
-      <main className="flex-1 p-8 bg-gray-50">
-        <h1 className="text-4xl font-semibold mb-6">Dashboard</h1>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="flex-1 p-8 bg-gray-50">
+      <h1 className="text-4xl font-semibold mb-6">Dashboard</h1>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card className="glass-effect">
             <CardHeader>
               <CardTitle className="text-xl">Urgent Deals</CardTitle>
@@ -328,8 +325,7 @@ const Index = () => {
               </Dialog>
             </CardContent>
           </Card>
-        </div>
-      </main>
+      </div>
     </div>
   );
 };
