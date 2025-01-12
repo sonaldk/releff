@@ -1,5 +1,6 @@
+import { memo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, Calendar, MessageSquare, TrendingUp, Heart, Gauge, Mail } from "lucide-react";
+import { Users, Calendar, MessageSquare, TrendingUp, Heart, Gauge } from "lucide-react";
 
 interface ContactMetricsProps {
   lastMeeting: string;
@@ -10,7 +11,21 @@ interface ContactMetricsProps {
   organizationContact: string;
 }
 
-export const ContactEngagementMetrics = ({
+const MetricCard = memo(({ title, value, icon: Icon }: { title: string; value: string; icon: any }) => (
+  <Card className="glass-effect">
+    <CardHeader className="flex flex-row items-center justify-between pb-2">
+      <CardTitle className="text-sm font-medium">{title}</CardTitle>
+      <Icon className="h-4 w-4 text-gray-500" />
+    </CardHeader>
+    <CardContent>
+      <div className="text-lg font-semibold">{value}</div>
+    </CardContent>
+  </Card>
+));
+
+MetricCard.displayName = 'MetricCard';
+
+export const ContactEngagementMetrics = memo(({
   lastMeeting,
   lastContactPerson,
   engagementScore,
@@ -18,67 +33,27 @@ export const ContactEngagementMetrics = ({
   influence,
   organizationContact,
 }: ContactMetricsProps) => {
+  const metrics = [
+    { title: "Organization Contact", value: organizationContact, icon: Users },
+    { title: "Last Meeting", value: lastMeeting, icon: Calendar },
+    { title: "Last Contact", value: lastContactPerson, icon: MessageSquare },
+    { title: "Engagement Score", value: engagementScore, icon: Gauge },
+    { title: "Sentiment", value: sentiment, icon: Heart },
+    { title: "Influence Level", value: influence, icon: TrendingUp },
+  ];
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-6">
-      <Card className="glass-effect">
-        <CardHeader className="flex flex-row items-center justify-between pb-2">
-          <CardTitle className="text-sm font-medium">Organization Contact</CardTitle>
-          <Users className="h-4 w-4 text-gray-500" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-lg font-semibold">{organizationContact}</div>
-        </CardContent>
-      </Card>
-
-      <Card className="glass-effect">
-        <CardHeader className="flex flex-row items-center justify-between pb-2">
-          <CardTitle className="text-sm font-medium">Last Meeting</CardTitle>
-          <Calendar className="h-4 w-4 text-gray-500" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-lg font-semibold">{lastMeeting}</div>
-        </CardContent>
-      </Card>
-
-      <Card className="glass-effect">
-        <CardHeader className="flex flex-row items-center justify-between pb-2">
-          <CardTitle className="text-sm font-medium">Last Contact</CardTitle>
-          <MessageSquare className="h-4 w-4 text-gray-500" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-lg font-semibold">{lastContactPerson}</div>
-        </CardContent>
-      </Card>
-
-      <Card className="glass-effect">
-        <CardHeader className="flex flex-row items-center justify-between pb-2">
-          <CardTitle className="text-sm font-medium">Engagement Score</CardTitle>
-          <Gauge className="h-4 w-4 text-gray-500" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-lg font-semibold">{engagementScore}</div>
-        </CardContent>
-      </Card>
-
-      <Card className="glass-effect">
-        <CardHeader className="flex flex-row items-center justify-between pb-2">
-          <CardTitle className="text-sm font-medium">Sentiment</CardTitle>
-          <Heart className="h-4 w-4 text-gray-500" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-lg font-semibold">{sentiment}</div>
-        </CardContent>
-      </Card>
-
-      <Card className="glass-effect">
-        <CardHeader className="flex flex-row items-center justify-between pb-2">
-          <CardTitle className="text-sm font-medium">Influence Level</CardTitle>
-          <TrendingUp className="h-4 w-4 text-gray-500" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-lg font-semibold">{influence}</div>
-        </CardContent>
-      </Card>
+      {metrics.map((metric, index) => (
+        <MetricCard
+          key={`${metric.title}-${index}`}
+          title={metric.title}
+          value={metric.value}
+          icon={metric.icon}
+        />
+      ))}
     </div>
   );
-};
+});
+
+ContactEngagementMetrics.displayName = 'ContactEngagementMetrics';
