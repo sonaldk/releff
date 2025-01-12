@@ -114,9 +114,10 @@ const getStatusColor = (status: string) => {
 const People = () => {
   const navigate = useNavigate();
 
-  const handleRowClick = (contactName: string) => {
-    // Convert contact name to URL-friendly format
-    const contactId = contactName.toLowerCase().replace(/\s+/g, '-');
+  const handleRowClick = (name: string) => {
+    // Convert contact name to URL-friendly format and ensure it matches the mock data keys
+    const contactId = name.toLowerCase().replace(/\s+/g, '-');
+    console.log('Navigating to contact:', contactId); // Debug log
     navigate(`/contact/${contactId}`);
   };
 
