@@ -115,8 +115,7 @@ const Organisation = () => {
   const navigate = useNavigate();
 
   const handleRowClick = (clientName: string) => {
-    // For demo purposes, using the client name as ID
-    // In production, use actual client IDs
+    // Convert client name to URL-friendly format for the ID
     const clientId = clientName.toLowerCase().replace(/\s+/g, '-');
     navigate(`/client/${clientId}`);
   };
