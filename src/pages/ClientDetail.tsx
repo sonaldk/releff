@@ -1,10 +1,12 @@
-import { useParams } from "react-router-dom";
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
+import { useParams, useNavigate } from "react-router-dom";
+import { AreaChart, Area, BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Upload, UserPlus, StickyNote } from "lucide-react";
+import { Mail, Upload, UserPlus, StickyNote, X } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useState } from "react";
 
 // Mock data for development
 const mockClientData = {
@@ -22,54 +24,66 @@ const mockClientData = {
     { subject: "Meeting Notes", date: "2024-01-08", attachments: 1 },
     { subject: "Proposal Review", date: "2024-01-05", attachments: 3 },
   ],
-  metrics: {
-    clientScore: 85,
-    sentimentScore: 78,
-    responseRate: 92,
-    intentScore: 88,
-  },
+  yearlyMetrics: {
+    2023: { clientScore: 85, responseRate: 92, intentScore: 88 },
+    2022: { clientScore: 78, responseRate: 85, intentScore: 82 },
+    2021: { clientScore: 72, responseRate: 80, intentScore: 75 },
+  }
 };
-
-const COLORS = ['#0088FE', '#EDEDED'];
 
 const ClientDetail = () => {
   const { id } = useParams();
-  // In a real app, we would fetch client data based on the ID
+  const navigate = useNavigate();
+  const [selectedYear, setSelectedYear] = useState("2023");
   const clientData = mockClientData;
 
-  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }: any) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * Math.PI / 180);
-    const y = cy + radius * Math.sin(-midAngle * Math.PI / 180);
-  
-    return (
-      <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central">
-        {`${(percent * 100).toFixed(0)}%`}
-      </text>
-    );
-  };
+  // Transform data for charts
+  const years = Object.keys(clientData.yearlyMetrics);
+  const chartData = years.map(year => ({
+    year,
+    clientScore: clientData.yearlyMetrics[year].clientScore,
+    responseRate: clientData.yearlyMetrics[year].responseRate,
+    intentScore: clientData.yearlyMetrics[year].intentScore,
+  }));
 
   return (
     <div className="flex-1 p-8 bg-gray-50">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-semibold">{clientData.name}</h1>
-        <div className="flex gap-3">
-          <Button variant="outline" size="sm">
-            <StickyNote className="w-4 h-4 mr-2" />
-            Add Note
-          </Button>
-          <Button variant="outline" size="sm">
-            <Upload className="w-4 h-4 mr-2" />
-            Upload
-          </Button>
-          <Button variant="outline" size="sm">
-            <Mail className="w-4 h-4 mr-2" />
-            Send Email
-          </Button>
-          <Button variant="outline" size="sm">
-            <UserPlus className="w-4 h-4 mr-2" />
-            Add Contact
-          </Button>
+        <div className="flex items-center gap-3">
+          <Select value={selectedYear} onValueChange={setSelectedYear}>
+            <SelectTrigger className="w-32">
+              <SelectValue placeholder="Select Year" />
+            </SelectTrigger>
+            <SelectContent>
+              {years.map(year => (
+                <SelectItem key={year} value={year}>
+                  {year}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <div className="flex gap-3">
+            <Button variant="outline" size="sm">
+              <StickyNote className="w-4 h-4 mr-2" />
+              Add Note
+            </Button>
+            <Button variant="outline" size="sm">
+              <Upload className="w-4 h-4 mr-2" />
+              Upload
+            </Button>
+            <Button variant="outline" size="sm">
+              <Mail className="w-4 h-4 mr-2" />
+              Send Email
+            </Button>
+            <Button variant="outline" size="sm">
+              <UserPlus className="w-4 h-4 mr-2" />
+              Add Contact
+            </Button>
+            <Button variant="ghost" size="sm" onClick={() => navigate('/organization')}>
+              <X className="w-4 h-4" />
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -111,100 +125,61 @@ const ClientDetail = () => {
           </CardContent>
         </Card>
 
-        {/* Client Score Card */}
+        {/* Client Score Card - Area Chart */}
         <Card>
           <CardHeader>
-            <CardTitle>Client Score</CardTitle>
+            <CardTitle>Client Score Trend</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-[200px]">
               <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={[
-                      { name: "Score", value: clientData.metrics.clientScore },
-                      { name: "Remaining", value: 100 - clientData.metrics.clientScore }
-                    ]}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    label={renderCustomizedLabel}
-                    outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="value"
-                  >
-                    {COLORS.map((color, index) => (
-                      <Cell key={`cell-${index}`} fill={color} />
-                    ))}
-                  </Pie>
+                <AreaChart data={chartData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="year" />
+                  <YAxis />
                   <Tooltip />
-                </PieChart>
+                  <Area type="monotone" dataKey="clientScore" stroke="#8884d8" fill="#8884d8" />
+                </AreaChart>
               </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
 
-        {/* Response Rate Card */}
+        {/* Response Rate Card - Bar Chart */}
         <Card>
           <CardHeader>
-            <CardTitle>Response Rate</CardTitle>
+            <CardTitle>Response Rate Trend</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-[200px]">
               <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={[
-                      { name: "Rate", value: clientData.metrics.responseRate },
-                      { name: "Remaining", value: 100 - clientData.metrics.responseRate }
-                    ]}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    label={renderCustomizedLabel}
-                    outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="value"
-                  >
-                    {COLORS.map((color, index) => (
-                      <Cell key={`cell-${index}`} fill={color} />
-                    ))}
-                  </Pie>
+                <BarChart data={chartData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="year" />
+                  <YAxis />
                   <Tooltip />
-                </PieChart>
+                  <Bar dataKey="responseRate" fill="#82ca9d" />
+                </BarChart>
               </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
 
-        {/* Intent Score Card */}
+        {/* Intent Score Card - Line Chart */}
         <Card>
           <CardHeader>
-            <CardTitle>Intent Score</CardTitle>
+            <CardTitle>Intent Score Trend</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-[200px]">
               <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={[
-                      { name: "Score", value: clientData.metrics.intentScore },
-                      { name: "Remaining", value: 100 - clientData.metrics.intentScore }
-                    ]}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    label={renderCustomizedLabel}
-                    outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="value"
-                  >
-                    {COLORS.map((color, index) => (
-                      <Cell key={`cell-${index}`} fill={color} />
-                    ))}
-                  </Pie>
+                <LineChart data={chartData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="year" />
+                  <YAxis />
                   <Tooltip />
-                </PieChart>
+                  <Line type="monotone" dataKey="intentScore" stroke="#ff7300" />
+                </LineChart>
               </ResponsiveContainer>
             </div>
           </CardContent>
