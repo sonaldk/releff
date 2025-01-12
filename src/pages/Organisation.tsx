@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Building2, Users, DollarSign } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 // Mock data for demonstration
 const summaryData = {
@@ -111,6 +112,15 @@ const formatCurrency = (amount: number) => {
 };
 
 const Organisation = () => {
+  const navigate = useNavigate();
+
+  const handleRowClick = (clientName: string) => {
+    // For demo purposes, using the client name as ID
+    // In production, use actual client IDs
+    const clientId = clientName.toLowerCase().replace(/\s+/g, '-');
+    navigate(`/client/${clientId}`);
+  };
+
   return (
     <div className="flex-1 p-8 bg-gray-50">
       <h1 className="text-4xl font-semibold mb-6">Organisation</h1>
@@ -167,7 +177,11 @@ const Organisation = () => {
             </TableHeader>
             <TableBody>
               {clientsData.map((client, index) => (
-                <TableRow key={index}>
+                <TableRow 
+                  key={index}
+                  className="cursor-pointer hover:bg-gray-50"
+                  onClick={() => handleRowClick(client.name)}
+                >
                   <TableCell className="font-medium">{client.name}</TableCell>
                   <TableCell>{client.employees}</TableCell>
                   <TableCell>{client.website}</TableCell>
