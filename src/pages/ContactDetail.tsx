@@ -1,13 +1,8 @@
-import { ArrowLeft, Building2, Mail, Phone, Calendar, X } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useParams } from "react-router-dom";
+import { ContactHeader } from "@/components/contact/ContactHeader";
 import { ContactEngagementMetrics } from "@/components/contact/ContactEngagementMetrics";
 import { RecentEmails } from "@/components/contact/RecentEmails";
-import {
-  AreaChart, Area, XAxis, YAxis, CartesianGrid, 
-  Tooltip, ResponsiveContainer, BarChart, Bar, 
-  LineChart, Line
-} from "recharts";
+import { EngagementCharts } from "@/components/contact/EngagementCharts";
 
 // Mock data for demonstration
 const mockContactData = {
@@ -176,7 +171,6 @@ const mockContactData = {
 };
 
 const ContactDetail = () => {
-  const navigate = useNavigate();
   const { id } = useParams();
   const contact = mockContactData[id as keyof typeof mockContactData];
 
@@ -186,50 +180,14 @@ const ContactDetail = () => {
 
   return (
     <div className="flex-1 p-8 bg-gray-50">
-      <div className="flex justify-between items-center mb-6">
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center text-gray-600 hover:text-gray-900"
-        >
-          <ArrowLeft className="h-5 w-5 mr-2" />
-          Back to People
-        </button>
-        <button
-          onClick={() => navigate("/people")}
-          className="text-gray-600 hover:text-gray-900"
-        >
-          <X className="h-5 w-5" />
-        </button>
-      </div>
+      <ContactHeader
+        name={contact.name}
+        organization={contact.organization}
+        email={contact.email}
+        phone={contact.phone}
+        lastContact={contact.lastContact}
+      />
 
-      {/* Basic Contact Information */}
-      <Card className="mb-8 glass-effect">
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold">{contact.name}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="flex items-center space-x-2">
-              <Building2 className="h-5 w-5 text-gray-500" />
-              <span>{contact.organization}</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Mail className="h-5 w-5 text-gray-500" />
-              <span>{contact.email}</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Phone className="h-5 w-5 text-gray-500" />
-              <span>{contact.phone}</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Calendar className="h-5 w-5 text-gray-500" />
-              <span>Last Contact: {contact.lastContact}</span>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Engagement Metrics */}
       <ContactEngagementMetrics
         lastMeeting={contact.lastMeeting}
         lastContactPerson={contact.lastContactPerson}
@@ -239,74 +197,9 @@ const ContactDetail = () => {
         organizationContact={contact.organizationContact}
       />
 
-      {/* Recent Emails */}
       <RecentEmails emails={contact.recentEmails} />
 
-      {/* Charts Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-        <Card className="glass-effect">
-          <CardHeader>
-            <CardTitle>Engagement Score</CardTitle>
-          </CardHeader>
-          <CardContent className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={contact.engagementHistory}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip />
-                <Area
-                  type="monotone"
-                  dataKey="score"
-                  stroke="#8884d8"
-                  fill="#8884d8"
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-
-        {/* Meetings Chart */}
-        <Card className="glass-effect">
-          <CardHeader>
-            <CardTitle>Monthly Meetings</CardTitle>
-          </CardHeader>
-          <CardContent className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={contact.engagementHistory}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="meetings" fill="#82ca9d" />
-              </BarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-
-        {/* Response Rate Chart */}
-        <Card className="glass-effect">
-          <CardHeader>
-            <CardTitle>Response Rate</CardTitle>
-          </CardHeader>
-          <CardContent className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={contact.engagementHistory}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip />
-                <Line
-                  type="monotone"
-                  dataKey="responses"
-                  stroke="#ffc658"
-                  strokeWidth={2}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-      </div>
+      <EngagementCharts engagementHistory={contact.engagementHistory} />
     </div>
   );
 };
