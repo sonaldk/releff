@@ -19,6 +19,8 @@ const mockContactData = {
     engagementScore: "High (85%)",
     sentiment: "Very Positive",
     influence: "Key Decision Maker",
+    riskIndex: "Low",
+    customerSatisfaction: "95%",
     recentEmails: [
       {
         date: "Mar 15, 2024",
@@ -73,6 +75,8 @@ const mockContactData = {
     engagementScore: "Medium (70%)",
     sentiment: "Positive",
     influence: "Influencer",
+    riskIndex: "Medium",
+    customerSatisfaction: "88%",
     recentEmails: [
       {
         date: "Feb 10, 2024",
@@ -127,6 +131,8 @@ const mockContactData = {
     engagementScore: "High (90%)",
     sentiment: "Very Positive",
     influence: "Key Influencer",
+    riskIndex: "Low",
+    customerSatisfaction: "92%",
     recentEmails: [
       {
         date: "Feb 12, 2024",
@@ -195,6 +201,8 @@ const ContactDetail = () => {
         sentiment={contact.sentiment}
         influence={contact.influence}
         organizationContact={contact.organizationContact}
+        riskIndex={contact.riskIndex}
+        customerSatisfaction={contact.customerSatisfaction}
       />
 
       <RecentEmails emails={contact.recentEmails} />

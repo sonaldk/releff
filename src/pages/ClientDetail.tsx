@@ -79,6 +79,8 @@ const clientsDatabase = {
     sentiment: "Very Positive",
     influence: "High",
     organizationContact: "Secondary",
+    riskIndex: "Low",
+    customerSatisfaction: "94%",
     emails: [
       {
         date: "2024-02-13",
@@ -105,6 +107,8 @@ const clientsDatabase = {
     sentiment: "Positive",
     influence: "Medium",
     organizationContact: "Primary",
+    riskIndex: "Medium",
+    customerSatisfaction: "87%",
     emails: [
       {
         date: "2024-02-12",
@@ -131,6 +135,8 @@ const clientsDatabase = {
     sentiment: "Excellent",
     influence: "High",
     organizationContact: "Primary",
+    riskIndex: "Low",
+    customerSatisfaction: "96%",
     emails: [
       {
         date: "2024-02-11",
@@ -157,6 +163,8 @@ const clientsDatabase = {
     sentiment: "Good",
     influence: "Medium",
     organizationContact: "Secondary",
+    riskIndex: "Medium",
+    customerSatisfaction: "89%",
     emails: [
       {
         date: "2024-02-10",
@@ -183,6 +191,8 @@ const clientsDatabase = {
     sentiment: "Positive",
     influence: "High",
     organizationContact: "Primary",
+    riskIndex: "Low",
+    customerSatisfaction: "91%",
     emails: [
       {
         date: "2024-02-09",
@@ -209,6 +219,8 @@ const clientsDatabase = {
     sentiment: "Excellent",
     influence: "High",
     organizationContact: "Primary",
+    riskIndex: "Low",
+    customerSatisfaction: "93%",
     emails: [
       {
         date: "2024-02-08",
@@ -235,6 +247,8 @@ const clientsDatabase = {
     sentiment: "Good",
     influence: "Medium",
     organizationContact: "Secondary",
+    riskIndex: "High",
+    customerSatisfaction: "78%",
     emails: [
       {
         date: "2024-02-07",
@@ -261,6 +275,8 @@ const clientsDatabase = {
     sentiment: "Positive",
     influence: "Medium",
     organizationContact: "Primary",
+    riskIndex: "Medium",
+    customerSatisfaction: "85%",
     emails: [
       {
         date: "2024-02-06",
