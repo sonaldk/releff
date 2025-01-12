@@ -4,19 +4,19 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 60 33% 94%;  /* beige background */
     --foreground: 240 10% 3.9%;
-    --nav-background: 0 0% 100%;
+    --nav-background: 60 33% 94%;  /* matching beige for nav */
     --nav-foreground: 240 10% 3.9%;
-    --nav-border: 240 5.9% 90%;
-    --nav-active: 240 5.9% 95%;
-    --nav-hover: 240 5.9% 93%;
+    --nav-border: 60 15% 85%;  /* slightly darker beige for borders */
+    --nav-active: 60 25% 90%;  /* lighter beige for active state */
+    --nav-hover: 60 20% 88%;   /* medium beige for hover */
     --primary: 240 5.9% 10%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
+    --secondary: 60 30% 96%;   /* very light beige for secondary */
     --secondary-foreground: 240 5.9% 10%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
+    --border: 60 15% 85%;      /* matching border color */
+    --input: 60 15% 85%;       /* matching input color */
     --ring: 240 5.9% 10%;
   }
 }
