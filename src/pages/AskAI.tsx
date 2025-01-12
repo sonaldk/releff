@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { AITemplates } from "@/components/ai/AITemplates";
 import { AIResponse } from "@/components/ai/AIResponse";
+import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import { getTemplatesForContact, getTemplatesForOrganization } from "@/utils/aiTemplates";
+import { getTemplatesForContact } from "@/utils/aiTemplates";
 import { mockContactData } from "@/data/mockData";
 
 const AskAI = () => {
@@ -18,10 +19,10 @@ const AskAI = () => {
   const [response, setResponse] = useState("");
   const [apiKey, setApiKey] = useState(localStorage.getItem("perplexity_api_key") || "");
 
-  const data = type === "contact" ? mockContactData[id as keyof typeof mockContactData] : null;
-  const templates = type === "contact" 
-    ? getTemplatesForContact(data)
-    : getTemplatesForOrganization(data);
+  // Get contact data based on the URL parameter
+  const contactId = id?.replace('john-smith', 'johnSmith'); // Convert URL-friendly ID to object key
+  const data = type === "contact" ? mockContactData[contactId as keyof typeof mockContactData] : null;
+  const templates = data ? getTemplatesForContact(data) : [];
 
   useEffect(() => {
     if (!data) {
@@ -87,7 +88,7 @@ const AskAI = () => {
 
   return (
     <div className="flex-1 p-8 bg-gray-50">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto space-y-6">
         <h1 className="text-3xl font-semibold mb-6">Ask AI Assistant</h1>
         
         {!apiKey && (
@@ -97,9 +98,8 @@ const AskAI = () => {
             </CardHeader>
             <CardContent>
               <div className="flex gap-4">
-                <input
+                <Input
                   type="password"
-                  className="flex-1 px-3 py-2 border rounded-md"
                   placeholder="Enter your Perplexity API key"
                   value={apiKey}
                   onChange={(e) => setApiKey(e.target.value)}
