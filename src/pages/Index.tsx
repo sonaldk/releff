@@ -2,8 +2,9 @@ import { Navbar } from "@/components/Navbar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
-// Mock data - in a real app, this would come from an API
 const urgentDeals = [
   { name: "Enterprise Solution Deal", status: "delayed", amount: "$150,000" },
   { name: "Cloud Migration Project", status: "pending_approval", amount: "$80,000" },
@@ -82,10 +83,32 @@ const Index = () => {
                   </div>
                 ))}
               </ScrollArea>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="link" className="mt-4 w-full">View All Urgent Deals</Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl">
+                  <DialogHeader>
+                    <DialogTitle>Urgent Deals Details</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    {urgentDeals.map((deal, index) => (
+                      <div key={index} className="p-4 border rounded-lg">
+                        <div className="flex justify-between items-start mb-2">
+                          <h3 className="font-semibold">{deal.name}</h3>
+                          <Badge className={getStatusColor(deal.status)}>
+                            {deal.status.replace("_", " ").toUpperCase()}
+                          </Badge>
+                        </div>
+                        <p className="text-sm text-gray-500">Amount: {deal.amount}</p>
+                      </div>
+                    ))}
+                  </div>
+                </DialogContent>
+              </Dialog>
             </CardContent>
           </Card>
 
-          {/* Accounts at Risk Card */}
           <Card className="glass-effect">
             <CardHeader>
               <CardTitle className="text-xl">Accounts at Risk</CardTitle>
@@ -106,10 +129,34 @@ const Index = () => {
                   </div>
                 ))}
               </ScrollArea>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="link" className="mt-4 w-full">View All At-Risk Accounts</Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl">
+                  <DialogHeader>
+                    <DialogTitle>At-Risk Accounts Details</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    {accountsAtRisk.map((account, index) => (
+                      <div key={index} className="p-4 border rounded-lg">
+                        <div className="flex justify-between items-start mb-2">
+                          <h3 className="font-semibold">{account.name}</h3>
+                          <Badge className="bg-red-100 text-red-500">AT RISK</Badge>
+                        </div>
+                        <p className="text-sm text-gray-500">
+                          {account.reason === "no_engagement" && "No engagement in 30 days"}
+                          {account.reason === "champion_left" && "Key champion left"}
+                          {account.reason === "delayed_payment" && "Delayed payment"}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </DialogContent>
+              </Dialog>
             </CardContent>
           </Card>
 
-          {/* Task Reminders Card */}
           <Card className="glass-effect">
             <CardHeader>
               <CardTitle className="text-xl">Task Reminders</CardTitle>
@@ -128,10 +175,32 @@ const Index = () => {
                   </div>
                 ))}
               </ScrollArea>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="link" className="mt-4 w-full">View All Task Reminders</Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl">
+                  <DialogHeader>
+                    <DialogTitle>Task Reminders Details</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    {taskReminders.map((task, index) => (
+                      <div key={index} className="p-4 border rounded-lg">
+                        <div className="flex justify-between items-start mb-2">
+                          <h3 className="font-semibold">{task.task}</h3>
+                          <Badge className={getStatusColor(task.priority)}>
+                            {task.priority.toUpperCase()}
+                          </Badge>
+                        </div>
+                        <p className="text-sm text-gray-500">Deadline: {task.deadline}</p>
+                      </div>
+                    ))}
+                  </div>
+                </DialogContent>
+              </Dialog>
             </CardContent>
           </Card>
 
-          {/* Recent Activities Card */}
           <Card className="glass-effect">
             <CardHeader>
               <CardTitle className="text-xl">Recent Activities</CardTitle>
@@ -148,10 +217,30 @@ const Index = () => {
                   </div>
                 ))}
               </ScrollArea>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="link" className="mt-4 w-full">View All Activities</Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl">
+                  <DialogHeader>
+                    <DialogTitle>Recent Activities Details</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    {recentActivities.map((activity, index) => (
+                      <div key={index} className="p-4 border rounded-lg">
+                        <div className="flex justify-between items-start mb-2">
+                          <h3 className="font-semibold">{activity.action}</h3>
+                          <span className="text-sm text-gray-500">{activity.time}</span>
+                        </div>
+                        <p className="text-sm text-gray-500">{activity.details}</p>
+                      </div>
+                    ))}
+                  </div>
+                </DialogContent>
+              </Dialog>
             </CardContent>
           </Card>
 
-          {/* Last Week Recap Card */}
           <Card className="glass-effect">
             <CardHeader>
               <CardTitle className="text-xl">Last Week Recap</CardTitle>
@@ -170,10 +259,32 @@ const Index = () => {
                   </div>
                 ))}
               </ScrollArea>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="link" className="mt-4 w-full">View Full Recap</Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl">
+                  <DialogHeader>
+                    <DialogTitle>Last Week's Detailed Recap</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    {lastWeekRecap.map((item, index) => (
+                      <div key={index} className="p-4 border rounded-lg">
+                        <div className="flex justify-between items-start mb-2">
+                          <h3 className="font-semibold">{item.metric}</h3>
+                          <Badge className={getStatusColor(item.trend)}>
+                            {item.change}
+                          </Badge>
+                        </div>
+                        <p className="text-2xl font-bold">{item.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </DialogContent>
+              </Dialog>
             </CardContent>
           </Card>
 
-          {/* This Week Outlook Card */}
           <Card className="glass-effect">
             <CardHeader>
               <CardTitle className="text-xl">This Week Outlook</CardTitle>
@@ -192,6 +303,29 @@ const Index = () => {
                   </div>
                 ))}
               </ScrollArea>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="link" className="mt-4 w-full">View Full Schedule</Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl">
+                  <DialogHeader>
+                    <DialogTitle>This Week's Detailed Schedule</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    {thisWeekOutlook.map((item, index) => (
+                      <div key={index} className="p-4 border rounded-lg">
+                        <div className="flex justify-between items-start mb-2">
+                          <h3 className="font-semibold">{item.event}</h3>
+                          <Badge className={getStatusColor(item.priority)}>
+                            {item.priority.toUpperCase()}
+                          </Badge>
+                        </div>
+                        <p className="text-sm text-gray-500">Day: {item.day}</p>
+                      </div>
+                    ))}
+                  </div>
+                </DialogContent>
+              </Dialog>
             </CardContent>
           </Card>
         </div>
