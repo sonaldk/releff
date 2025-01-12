@@ -3,6 +3,7 @@ import { ContactHeader } from "@/components/contact/ContactHeader";
 import { ContactEngagementMetrics } from "@/components/contact/ContactEngagementMetrics";
 import { RecentEmails } from "@/components/contact/RecentEmails";
 import { EngagementCharts } from "@/components/contact/EngagementCharts";
+import { LatestNews } from "@/components/contact/LatestNews";
 
 const clientsDatabase = {
   "techcorp-solutions": {
@@ -325,11 +326,21 @@ const ClientDetail = () => {
         organizationContact={clientData.organizationContact}
         riskIndex={clientData.riskIndex}
         customerSatisfaction={clientData.customerSatisfaction}
+        deepestRelationship="Sarah Johnson (Account Manager)"
+        broadestRelationship="Michael Chen (Solutions Architect)"
+        relationshipScore="87"
+        interactionMetrics={{
+          deals: 5,
+          emails: 234,
+          calls: 45,
+          meetings: 12
+        }}
       />
 
       <div className="grid grid-cols-1 gap-6">
         <RecentEmails emails={clientData.emails} />
         <EngagementCharts engagementHistory={clientData.engagementHistory} />
+        <LatestNews />
       </div>
     </div>
   );
