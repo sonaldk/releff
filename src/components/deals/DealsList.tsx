@@ -39,9 +39,13 @@ export const DealsList = ({ deals }: DealsListProps) => {
   const handleRowClick = (dealName: string) => {
     // Convert the deal name to kebab case for the URL
     const dealId = dealName.toLowerCase().replace(/\s+/g, '-');
-    console.log("Navigating to deal:", dealId);
+    console.log("DealsList - Clicked deal:", dealName);
+    console.log("DealsList - Generated dealId:", dealId);
+    console.log("DealsList - Navigating to path:", `/dashboard/deal/${dealId}`);
     navigate(`/dashboard/deal/${dealId}`);
   };
+
+  console.log("DealsList - Rendering with deals:", deals);
 
   return (
     <Card className="glass-effect">

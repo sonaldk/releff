@@ -50,28 +50,45 @@ const dealsDatabase = {
 
 const DealDetail = () => {
   const { id } = useParams();
+  console.log("DealDetail - Component mounted");
+  console.log("DealDetail - URL parameter id:", id);
+  console.log("DealDetail - Available deals in database:", Object.keys(dealsDatabase));
 
   const { data: dealData, isLoading } = useQuery({
     queryKey: ['deal', id],
     queryFn: () => {
-      // Convert the deal name to kebab case to match the URL
-      const dealId = id?.toLowerCase().replace(/\s+/g, '-');
-      console.log("Looking for deal with ID:", dealId);
+      console.log("DealDetail - Fetching data for id:", id);
       
-      if (!dealId || !dealsDatabase[dealId as keyof typeof dealsDatabase]) {
+      if (!id) {
+        console.error("DealDetail - No ID provided");
+        throw new Error("No deal ID provided");
+      }
+
+      const dealId = id.toLowerCase();
+      console.log("DealDetail - Normalized deal ID:", dealId);
+      console.log("DealDetail - Looking for deal in database:", dealId);
+      
+      const deal = dealsDatabase[dealId as keyof typeof dealsDatabase];
+      console.log("DealDetail - Found deal:", deal);
+
+      if (!deal) {
+        console.error("DealDetail - Deal not found in database");
         throw new Error(`Deal not found: ${dealId}`);
       }
-      return dealsDatabase[dealId as keyof typeof dealsDatabase];
+
+      return deal;
     },
   });
 
-  console.log("Deal data:", dealData);
+  console.log("DealDetail - Query result:", { isLoading, dealData });
 
   if (isLoading) {
+    console.log("DealDetail - Loading state");
     return <div className="p-8">Loading...</div>;
   }
 
   if (!dealData) {
+    console.log("DealDetail - No deal data found");
     return (
       <div className="p-8">
         <h1 className="text-2xl font-bold text-red-600">Deal not found</h1>
@@ -79,6 +96,8 @@ const DealDetail = () => {
       </div>
     );
   }
+
+  console.log("DealDetail - Rendering deal:", dealData);
 
   return (
     <div className="p-8 space-y-8 bg-background min-h-screen w-full">
