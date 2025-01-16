@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const accountsAtRisk = [
   { name: "TechCorp Inc.", reason: "no_engagement", lastEngagement: "30 days ago" },
@@ -11,6 +12,13 @@ const accountsAtRisk = [
 ];
 
 export const AccountsAtRiskCard = () => {
+  const navigate = useNavigate();
+
+  const handleAccountClick = (accountName: string) => {
+    const accountId = accountName.toLowerCase().replace(/\s+/g, '-');
+    navigate(`/dashboard/client/${accountId}`);
+  };
+
   return (
     <Card className="glass-effect">
       <CardHeader>
@@ -19,7 +27,11 @@ export const AccountsAtRiskCard = () => {
       <CardContent>
         <ScrollArea className="h-[200px]">
           {accountsAtRisk.map((account, index) => (
-            <div key={index} className="mb-4">
+            <div 
+              key={index} 
+              className="mb-4 p-3 rounded-lg hover:bg-blue-50/80 hover:backdrop-blur-sm cursor-pointer transition-all duration-200"
+              onClick={() => handleAccountClick(account.name)}
+            >
               <div className="flex items-center justify-between">
                 <p className="font-medium">{account.name}</p>
                 <Badge className="bg-red-100 text-red-500">AT RISK</Badge>
@@ -42,7 +54,11 @@ export const AccountsAtRiskCard = () => {
             </DialogHeader>
             <div className="space-y-4">
               {accountsAtRisk.map((account, index) => (
-                <div key={index} className="p-4 border rounded-lg">
+                <div 
+                  key={index} 
+                  className="p-4 border rounded-lg hover:bg-blue-50/80 hover:backdrop-blur-sm cursor-pointer transition-all duration-200"
+                  onClick={() => handleAccountClick(account.name)}
+                >
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="font-semibold">{account.name}</h3>
                     <Badge className="bg-red-100 text-red-500">AT RISK</Badge>
