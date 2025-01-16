@@ -30,6 +30,13 @@ export const Navbar = () => {
   const location = useLocation();
   const isMobile = useIsMobile();
 
+  const isActive = (path: string) => {
+    if (path === "/dashboard") {
+      return location.pathname === path;
+    }
+    return location.pathname.startsWith(path);
+  };
+
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
@@ -54,24 +61,21 @@ export const Navbar = () => {
           </div>
           {mobileMenuOpen && (
             <div className="p-4 space-y-2">
-              {navItems.map(({ path, label, icon: Icon }) => {
-                const isActive = location.pathname === path;
-                return (
-                  <Link
-                    key={path}
-                    to={path}
-                    className={cn(
-                      "relative flex items-center px-3 py-2 rounded-lg transition-all duration-200",
-                      "hover:bg-nav-hover",
-                      isActive && "bg-nav-active nav-item-active"
-                    )}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <Icon className="h-5 w-5 shrink-0" />
-                    <span className="ml-3">{label}</span>
-                  </Link>
-                );
-              })}
+              {navItems.map(({ path, label, icon: Icon }) => (
+                <Link
+                  key={path}
+                  to={path}
+                  className={cn(
+                    "relative flex items-center px-3 py-2 rounded-lg transition-all duration-200",
+                    "hover:bg-nav-hover",
+                    isActive(path) && "bg-nav-active nav-item-active"
+                  )}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <Icon className="h-5 w-5 shrink-0" />
+                  <span className="ml-3">{label}</span>
+                </Link>
+              ))}
             </div>
           )}
         </nav>
@@ -101,30 +105,27 @@ export const Navbar = () => {
             </div>
 
             <div className="space-y-2">
-              {navItems.map(({ path, label, icon: Icon }) => {
-                const isActive = location.pathname === path;
-                return (
-                  <Link
-                    key={path}
-                    to={path}
-                    className={cn(
-                      "relative flex items-center px-3 py-2 rounded-lg transition-all duration-200",
-                      "hover:bg-nav-hover group",
-                      isActive && "bg-nav-active nav-item-active"
-                    )}
-                  >
-                    <Icon className="h-5 w-5 shrink-0" />
-                    {expanded && (
-                      <span className="ml-3 animate-fade-in">{label}</span>
-                    )}
-                    {!expanded && (
-                      <div className="absolute left-14 px-2 py-1 bg-nav-background border border-nav-border rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50">
-                        {label}
-                      </div>
-                    )}
-                  </Link>
-                );
-              })}
+              {navItems.map(({ path, label, icon: Icon }) => (
+                <Link
+                  key={path}
+                  to={path}
+                  className={cn(
+                    "relative flex items-center px-3 py-2 rounded-lg transition-all duration-200",
+                    "hover:bg-nav-hover group",
+                    isActive(path) && "bg-nav-active nav-item-active"
+                  )}
+                >
+                  <Icon className="h-5 w-5 shrink-0" />
+                  {expanded && (
+                    <span className="ml-3 animate-fade-in">{label}</span>
+                  )}
+                  {!expanded && (
+                    <div className="absolute left-14 px-2 py-1 bg-nav-background border border-nav-border rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50">
+                      {label}
+                    </div>
+                  )}
+                </Link>
+              ))}
             </div>
           </div>
         </nav>
