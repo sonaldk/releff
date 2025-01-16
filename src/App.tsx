@@ -4,6 +4,7 @@ import { Session } from "@supabase/supabase-js";
 import { supabase } from "./integrations/supabase/client";
 import { Navbar } from "./components/Navbar";
 import { TopNav } from "./components/TopNav";
+import Landing from "./pages/Landing";
 import Index from "./pages/Index";
 import Organisation from "./pages/Organisation";
 import People from "./pages/People";
@@ -51,9 +52,10 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Landing />} />
         <Route path="/auth" element={<Auth />} />
         <Route
-          path="/*"
+          path="/dashboard/*"
           element={
             <ProtectedRoute>
               <div className="min-h-screen">
