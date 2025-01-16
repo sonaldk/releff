@@ -38,7 +38,7 @@ export const ClientList = ({ clients }: ClientListProps) => {
 
   const handleRowClick = (clientName: string) => {
     const clientId = clientName.toLowerCase().replace(/\s+/g, '-');
-    navigate(`/client/${clientId}`);
+    navigate(`/dashboard/client/${clientId}`);
   };
 
   return (

@@ -51,3 +51,30 @@ export const mockClients = {
     }
   }
 };
+
+export const clientsList = [
+  {
+    name: "TechCorp Inc.",
+    employees: 250,
+    website: "techcorp.com",
+    dealsCount: 8,
+    revenue: 5000000,
+    health: "At Risk"
+  },
+  {
+    name: "Global Systems",
+    employees: 400,
+    website: "globalsystems.com",
+    dealsCount: 5,
+    revenue: 8000000,
+    health: "At Risk"
+  },
+  {
+    name: "Innovate Co.",
+    employees: 120,
+    website: "innovateco.com",
+    dealsCount: 4,
+    revenue: 3000000,
+    health: "At Risk"
+  }
+];
