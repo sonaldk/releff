@@ -4,6 +4,16 @@ import { Button } from "@/components/ui/button";
 const Landing = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      {/* Header */}
+      <header className="container mx-auto px-4 py-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-primary">Releff</h2>
+          <Link to="/auth">
+            <Button variant="outline">Sign In</Button>
+          </Link>
+        </div>
+      </header>
+
       {/* Hero Section */}
       <div className="container mx-auto px-4 py-16 md:py-24">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -108,6 +118,16 @@ const Landing = () => {
           </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="bg-gray-50 py-12">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col items-center space-y-4">
+            <h2 className="text-xl font-bold text-primary">Releff</h2>
+            <p className="text-gray-600">© 2024 Releff. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
