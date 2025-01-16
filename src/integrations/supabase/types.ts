@@ -9,7 +9,114 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      accounts_at_risk: {
+        Row: {
+          created_at: string | null
+          details: string | null
+          id: string
+          last_engagement: string | null
+          name: string
+          reason: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          details?: string | null
+          id?: string
+          last_engagement?: string | null
+          name: string
+          reason: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          details?: string | null
+          id?: string
+          last_engagement?: string | null
+          name?: string
+          reason?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      recent_activities: {
+        Row: {
+          action: string
+          details: string
+          id: string
+          time: string | null
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          details: string
+          id?: string
+          time?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          details?: string
+          id?: string
+          time?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      task_reminders: {
+        Row: {
+          created_at: string | null
+          deadline: string
+          id: string
+          priority: string
+          task: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          deadline: string
+          id?: string
+          priority: string
+          task: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          deadline?: string
+          id?: string
+          priority?: string
+          task?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      urgent_deals: {
+        Row: {
+          amount: number
+          created_at: string | null
+          id: string
+          name: string
+          status: string
+          user_id: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          id?: string
+          name: string
+          status: string
+          user_id?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          id?: string
+          name?: string
+          status?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
