@@ -30,7 +30,6 @@ export const UrgentDealsCard = () => {
   const navigate = useNavigate();
 
   const handleDealClick = (dealName: string) => {
-    // Convert deal name to URL-friendly format
     const dealId = dealName.toLowerCase().replace(/ /g, '-');
     navigate(`/deals/${dealId}`);
   };

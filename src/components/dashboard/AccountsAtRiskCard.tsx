@@ -15,8 +15,7 @@ export const AccountsAtRiskCard = () => {
   const navigate = useNavigate();
 
   const handleAccountClick = (accountName: string) => {
-    // Convert account name to URL-friendly format
-    const accountId = accountName.toLowerCase().replace(/ /g, '-');
+    const accountId = accountName.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '-');
     navigate(`/organisation/${accountId}`);
   };
 

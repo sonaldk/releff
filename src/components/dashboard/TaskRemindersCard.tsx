@@ -24,8 +24,7 @@ export const TaskRemindersCard = () => {
   const navigate = useNavigate();
 
   const handleTaskClick = (task: string) => {
-    // Convert task to URL-friendly format and navigate to a task detail page
-    const taskId = task.toLowerCase().replace(/ /g, '-');
+    const taskId = task.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '-');
     navigate(`/tasks/${taskId}`);
   };
 
