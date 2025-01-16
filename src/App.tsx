@@ -54,7 +54,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/auth" element={<Auth />} />
-        <Route path="/dashboard/*" element={
+        <Route path="/dashboard" element={
           <ProtectedRoute>
             <div className="min-h-screen">
               <TopNav />
