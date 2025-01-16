@@ -4,19 +4,21 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { mockClients } from "@/data/mockClients";
 
 const accountsAtRisk = [
-  { name: "TechCorp Inc.", reason: "no_engagement", lastEngagement: "30 days ago" },
-  { name: "Global Systems", reason: "champion_left", details: "CTO departed" },
-  { name: "Innovate Co.", reason: "delayed_payment", amount: "$25,000" },
+  { id: "techcorp-inc", name: "TechCorp Inc.", reason: "no_engagement", lastEngagement: "30 days ago" },
+  { id: "global-systems", name: "Global Systems", reason: "champion_left", details: "CTO departed" },
+  { id: "innovate-co", name: "Innovate Co.", reason: "delayed_payment", amount: "$25,000" },
 ];
 
 export const AccountsAtRiskCard = () => {
   const navigate = useNavigate();
 
-  const handleAccountClick = (accountName: string) => {
-    const accountId = accountName.toLowerCase().replace(/\s+/g, '-');
-    navigate(`/dashboard/client/${accountId}`);
+  const handleAccountClick = (accountId: string) => {
+    if (mockClients[accountId]) {
+      navigate(`/dashboard/client/${accountId}`);
+    }
   };
 
   return (
@@ -26,11 +28,11 @@ export const AccountsAtRiskCard = () => {
       </CardHeader>
       <CardContent>
         <ScrollArea className="h-[200px]">
-          {accountsAtRisk.map((account, index) => (
+          {accountsAtRisk.map((account) => (
             <div 
-              key={index} 
+              key={account.id} 
               className="mb-4 p-3 rounded-lg hover:bg-blue-50/80 hover:backdrop-blur-sm cursor-pointer transition-all duration-200"
-              onClick={() => handleAccountClick(account.name)}
+              onClick={() => handleAccountClick(account.id)}
             >
               <div className="flex items-center justify-between">
                 <p className="font-medium">{account.name}</p>
@@ -53,11 +55,11 @@ export const AccountsAtRiskCard = () => {
               <DialogTitle>At-Risk Accounts Details</DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
-              {accountsAtRisk.map((account, index) => (
+              {accountsAtRisk.map((account) => (
                 <div 
-                  key={index} 
+                  key={account.id} 
                   className="p-4 border rounded-lg hover:bg-blue-50/80 hover:backdrop-blur-sm cursor-pointer transition-all duration-200"
-                  onClick={() => handleAccountClick(account.name)}
+                  onClick={() => handleAccountClick(account.id)}
                 >
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="font-semibold">{account.name}</h3>
