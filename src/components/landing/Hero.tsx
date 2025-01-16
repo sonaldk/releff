@@ -15,7 +15,8 @@ export const Hero = () => {
             Streamline your customer relationships, track deals, and boost engagement with our intelligent CRM platform.
           </p>
           <div className="pt-4">
-            ="lg" 
+            <Button 
+              size="lg"
               className="text-lg px-8 hover:scale-105 transition-transform duration-200"
               onClick={() => navigate("/auth")}
             >
