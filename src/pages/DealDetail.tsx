@@ -1,9 +1,10 @@
 import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { DealHeader } from "@/components/deal/DealHeader";
 import { DealMetrics } from "@/components/deal/DealMetrics";
 import { TasksModule } from "@/components/tasks/TasksModule";
 
-// Mock database for demonstration
+// Mock database for demonstration - this would typically come from Supabase
 const dealsDatabase = {
   "enterprise-software-license": {
     name: "Enterprise Software License",
@@ -49,19 +50,36 @@ const dealsDatabase = {
 
 const DealDetail = () => {
   const { id } = useParams();
-  
-  const dealData = id ? dealsDatabase[id as keyof typeof dealsDatabase] : null;
+  console.log("Deal ID from params:", id);
 
-  if (!dealData) {
+  const { data: dealData, isLoading, error } = useQuery({
+    queryKey: ['deal', id],
+    queryFn: () => {
+      console.log("Fetching deal data for ID:", id);
+      if (!id || !dealsDatabase[id as keyof typeof dealsDatabase]) {
+        throw new Error(`Deal not found: ${id}`);
+      }
+      return dealsDatabase[id as keyof typeof dealsDatabase];
+    },
+  });
+
+  console.log("Deal data:", dealData);
+
+  if (isLoading) {
+    return <div className="p-8">Loading...</div>;
+  }
+
+  if (error || !dealData) {
     return (
       <div className="p-8">
         <h1 className="text-2xl font-bold text-red-600">Deal not found</h1>
+        <p className="mt-2">The requested deal could not be found. ID: {id}</p>
       </div>
     );
   }
 
   return (
-    <div className="p-8 space-y-8">
+    <div className="p-8 space-y-8 bg-background min-h-screen w-full">
       <DealHeader
         name={dealData.name}
         client={dealData.client}
