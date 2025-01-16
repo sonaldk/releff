@@ -4,7 +4,7 @@ import { DealHeader } from "@/components/deal/DealHeader";
 import { DealMetrics } from "@/components/deal/DealMetrics";
 import { TasksModule } from "@/components/tasks/TasksModule";
 
-// Mock database for demonstration - this would typically come from Supabase
+// Mock database for demonstration
 const dealsDatabase = {
   "enterprise-software-license": {
     name: "Enterprise Software License",
@@ -50,16 +50,18 @@ const dealsDatabase = {
 
 const DealDetail = () => {
   const { id } = useParams();
-  console.log("Deal ID from params:", id);
 
-  const { data: dealData, isLoading, error } = useQuery({
+  const { data: dealData, isLoading } = useQuery({
     queryKey: ['deal', id],
     queryFn: () => {
-      console.log("Fetching deal data for ID:", id);
-      if (!id || !dealsDatabase[id as keyof typeof dealsDatabase]) {
-        throw new Error(`Deal not found: ${id}`);
+      // Convert the deal name to kebab case to match the URL
+      const dealId = id?.toLowerCase().replace(/\s+/g, '-');
+      console.log("Looking for deal with ID:", dealId);
+      
+      if (!dealId || !dealsDatabase[dealId as keyof typeof dealsDatabase]) {
+        throw new Error(`Deal not found: ${dealId}`);
       }
-      return dealsDatabase[id as keyof typeof dealsDatabase];
+      return dealsDatabase[dealId as keyof typeof dealsDatabase];
     },
   });
 
@@ -69,7 +71,7 @@ const DealDetail = () => {
     return <div className="p-8">Loading...</div>;
   }
 
-  if (error || !dealData) {
+  if (!dealData) {
     return (
       <div className="p-8">
         <h1 className="text-2xl font-bold text-red-600">Deal not found</h1>

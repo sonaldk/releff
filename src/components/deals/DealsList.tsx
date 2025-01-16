@@ -37,8 +37,10 @@ export const DealsList = ({ deals }: DealsListProps) => {
   const navigate = useNavigate();
 
   const handleRowClick = (dealName: string) => {
+    // Convert the deal name to kebab case for the URL
     const dealId = dealName.toLowerCase().replace(/\s+/g, '-');
-    navigate(`/deal/${dealId}`);
+    console.log("Navigating to deal:", dealId);
+    navigate(`/dashboard/deal/${dealId}`);
   };
 
   return (
