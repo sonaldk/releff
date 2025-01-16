@@ -57,16 +57,18 @@ const ClientDetail = () => {
                 <p className="text-sm text-gray-500">Risk Reason</p>
                 <p className="font-medium">{clientData.reason}</p>
               </div>
-              {clientData.details && (
+              {'details' in clientData && clientData.details && (
                 <div>
                   <p className="text-sm text-gray-500">Details</p>
                   <p className="font-medium">{clientData.details}</p>
                 </div>
               )}
-              <div>
-                <p className="text-sm text-gray-500">Last Engagement</p>
-                <p className="font-medium">{clientData.lastEngagement || "N/A"}</p>
-              </div>
+              {'lastEngagement' in clientData && clientData.lastEngagement && (
+                <div>
+                  <p className="text-sm text-gray-500">Last Engagement</p>
+                  <p className="font-medium">{clientData.lastEngagement}</p>
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>
