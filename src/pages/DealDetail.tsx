@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { DealHeader } from "@/components/deal/DealHeader";
 import { DealMetrics } from "@/components/deal/DealMetrics";
-import { EngagementCharts } from "@/components/contact/EngagementCharts";
 
 // Mock database for demonstration
 const dealsDatabase = {
@@ -23,12 +22,7 @@ const dealsDatabase = {
       emails: 45,
       meetings: 8,
       calls: 12
-    },
-    engagementHistory: [
-      { month: "Dec", score: 65, meetings: 2, responses: 75 },
-      { month: "Jan", score: 75, meetings: 4, responses: 85 },
-      { month: "Feb", score: 85, meetings: 5, responses: 90 }
-    ]
+    }
   },
   "cloud-migration-project": {
     name: "Cloud Migration Project",
@@ -48,12 +42,7 @@ const dealsDatabase = {
       emails: 28,
       meetings: 5,
       calls: 8
-    },
-    engagementHistory: [
-      { month: "Dec", score: 60, meetings: 2, responses: 70 },
-      { month: "Jan", score: 70, meetings: 3, responses: 80 },
-      { month: "Feb", score: 75, meetings: 4, responses: 85 }
-    ]
+    }
   }
 };
 
@@ -91,10 +80,6 @@ const DealDetail = () => {
         lastContact={dealData.lastContact}
         communicationStats={dealData.communicationStats}
       />
-
-      <div className="mt-6">
-        <EngagementCharts engagementHistory={dealData.engagementHistory} />
-      </div>
     </div>
   );
 };
