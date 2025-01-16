@@ -18,12 +18,12 @@ export const ClientList = ({ clients }: ClientListProps) => {
   const navigate = useNavigate();
 
   const handleRowClick = (clientName: string) => {
-    // Convert client name to kebab case for URL and ensure it matches the database keys
+    // Convert client name to a valid URL-friendly format
     const clientId = clientName
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/(^-|-$)/g, '')
-      .replace(/[^a-z0-9-]/g, '');
+      .trim();
     
     console.log('Navigating to client:', clientId); // Debug log
     navigate(`/dashboard/client/${clientId}`);
@@ -39,7 +39,7 @@ export const ClientList = ({ clients }: ClientListProps) => {
   };
 
   return (
-    <div className="rounded-lg border bg-card">
+    <div className="rounded-lg border bg-card text-card-foreground">
       <Table>
         <TableHeader>
           <TableRow>
