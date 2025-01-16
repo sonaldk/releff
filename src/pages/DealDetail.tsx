@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { DealHeader } from "@/components/deal/DealHeader";
 import { DealMetrics } from "@/components/deal/DealMetrics";
+import { TasksModule } from "@/components/tasks/TasksModule";
 
 // Mock database for demonstration
 const dealsDatabase = {
@@ -60,7 +61,7 @@ const DealDetail = () => {
   }
 
   return (
-    <div className="p-8">
+    <div className="p-8 space-y-8">
       <DealHeader
         name={dealData.name}
         client={dealData.client}
@@ -80,6 +81,8 @@ const DealDetail = () => {
         lastContact={dealData.lastContact}
         communicationStats={dealData.communicationStats}
       />
+
+      <TasksModule entityType="deal" entityId={id || ''} />
     </div>
   );
 };

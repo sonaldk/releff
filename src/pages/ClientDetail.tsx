@@ -426,6 +426,7 @@ const ClientDetail = () => {
         <RecentEmails emails={clientData.emails} />
         <EngagementCharts engagementHistory={clientData.engagementHistory} />
         <LatestNews />
+        <TasksModule entityType="client" entityId={id || ''} />
       </div>
     </div>
   );
