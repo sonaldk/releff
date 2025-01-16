@@ -3,7 +3,6 @@ import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
 
 const taskReminders = [
   { task: "Follow up on proposal", deadline: "Tomorrow", priority: "high" },
@@ -21,13 +20,6 @@ const getStatusColor = (status: string) => {
 };
 
 export const TaskRemindersCard = () => {
-  const navigate = useNavigate();
-
-  const handleTaskClick = (task: string) => {
-    const taskId = task.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '-');
-    navigate(`/tasks/${taskId}`);
-  };
-
   return (
     <Card className="glass-effect">
       <CardHeader>
@@ -36,11 +28,7 @@ export const TaskRemindersCard = () => {
       <CardContent>
         <ScrollArea className="h-[200px]">
           {taskReminders.map((task, index) => (
-            <div 
-              key={index} 
-              className="flex items-center justify-between mb-4 p-2 hover:bg-gray-50 rounded cursor-pointer transition-colors"
-              onClick={() => handleTaskClick(task.task)}
-            >
+            <div key={index} className="flex items-center justify-between mb-4">
               <div>
                 <p className="font-medium">{task.task}</p>
                 <p className="text-sm text-gray-500">{task.deadline}</p>
@@ -61,11 +49,7 @@ export const TaskRemindersCard = () => {
             </DialogHeader>
             <div className="space-y-4">
               {taskReminders.map((task, index) => (
-                <div 
-                  key={index} 
-                  className="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
-                  onClick={() => handleTaskClick(task.task)}
-                >
+                <div key={index} className="p-4 border rounded-lg">
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="font-semibold">{task.task}</h3>
                     <Badge className={getStatusColor(task.priority)}>
