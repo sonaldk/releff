@@ -45,7 +45,7 @@ export const UrgentDealsCard = () => {
             <div
               key={deal.id}
               onClick={() => handleDealClick(deal.id)}
-              className="flex items-center justify-between mb-4 p-3 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors"
+              className="flex items-center justify-between mb-4 p-3 rounded-lg hover:bg-blue-50/80 hover:backdrop-blur-sm cursor-pointer transition-all duration-200"
             >
               <div>
                 <p className="font-medium">{deal.name}</p>
@@ -70,7 +70,7 @@ export const UrgentDealsCard = () => {
                 <div
                   key={deal.id}
                   onClick={() => handleDealClick(deal.id)}
-                  className="p-4 border rounded-lg hover:bg-gray-100 cursor-pointer transition-colors"
+                  className="p-4 border rounded-lg hover:bg-blue-50/80 hover:backdrop-blur-sm cursor-pointer transition-all duration-200"
                 >
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="font-semibold">{deal.name}</h3>
