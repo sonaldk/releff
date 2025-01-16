@@ -11,6 +11,7 @@ import AskAI from "./pages/AskAI";
 import Integrations from "./pages/Integrations";
 import ClientDetail from "./pages/ClientDetail";
 import ContactDetail from "./pages/ContactDetail";
+import DealDetail from "./pages/DealDetail";
 import Deals from "./pages/Deals";
 import Auth from "./pages/Auth";
 import { useIsMobile } from "./hooks/use-mobile";
@@ -67,6 +68,7 @@ function App() {
                       <Route path="/ask-ai" element={<AskAI />} />
                       <Route path="/integrations" element={<Integrations />} />
                       <Route path="/deals" element={<Deals />} />
+                      <Route path="/deal/:id" element={<DealDetail />} />
                       <Route path="/client/:id" element={<ClientDetail />} />
                       <Route path="/contact/:id" element={<ContactDetail />} />
                     </Routes>
