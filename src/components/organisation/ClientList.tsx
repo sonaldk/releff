@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { clientsDatabase } from "@/data/clientsDatabase"; // Import the database
 
 interface Client {
   name: string;
@@ -18,15 +19,23 @@ export const ClientList = ({ clients }: ClientListProps) => {
   const navigate = useNavigate();
 
   const handleRowClick = (clientName: string) => {
-    // Convert client name to a valid URL-friendly format
+    // Convert client name to a valid URL-friendly format and ensure it matches database keys
     const clientId = clientName
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/(^-|-$)/g, '')
       .trim();
     
-    console.log('Navigating to client:', clientId); // Debug log
-    navigate(`/dashboard/client/${clientId}`);
+    console.log('Attempting to navigate to client:', clientId); // Debug log
+    console.log('Available client IDs:', Object.keys(clientsDatabase)); // Debug log
+    
+    // Check if the client exists in the database
+    if (clientsDatabase[clientId as keyof typeof clientsDatabase]) {
+      navigate(`/dashboard/client/${clientId}`);
+    } else {
+      console.error(`Client not found in database: ${clientId}`);
+      // You might want to show a toast here to inform the user
+    }
   };
 
   const getHealthColor = (health: string) => {
@@ -39,7 +48,7 @@ export const ClientList = ({ clients }: ClientListProps) => {
   };
 
   return (
-    <div className="rounded-lg border bg-card text-card-foreground">
+    <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
       <Table>
         <TableHeader>
           <TableRow>
