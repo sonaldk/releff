@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 export const Hero = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export const Hero = () => {
               className="text-lg px-8 hover:scale-105 transition-transform duration-200"
               onClick={() => navigate("/auth")}
             >
-              Get Started
+              Get Started <ArrowRight className="ml-2" />
             </Button>
           </div>
         </div>

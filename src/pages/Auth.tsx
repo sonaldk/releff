@@ -10,6 +10,7 @@ const Auth = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === "SIGNED_IN" && session) {
         navigate("/dashboard");

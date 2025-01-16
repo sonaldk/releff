@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 export const CTA = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export const CTA = () => {
               className="text-lg px-8 hover:scale-105 transition-transform duration-200 animate-fade-in [animation-delay:400ms]"
               onClick={() => navigate("/auth")}
             >
-              Start Free Trial
+              Start Free Trial <ArrowRight className="ml-2" />
             </Button>
           </div>
         </div>
