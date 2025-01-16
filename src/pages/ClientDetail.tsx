@@ -4,6 +4,7 @@ import { ContactEngagementMetrics } from "@/components/contact/ContactEngagement
 import { RecentEmails } from "@/components/contact/RecentEmails";
 import { EngagementCharts } from "@/components/contact/EngagementCharts";
 import { LatestNews } from "@/components/contact/LatestNews";
+import { TasksModule } from "@/components/tasks/TasksModule";
 
 const clientsDatabase = {
   "techcorp-solutions": {

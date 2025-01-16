@@ -43,7 +43,10 @@ export const TaskForm = ({ entityType, entityId, onSuccess }: TaskFormProps) => 
         description: "Task created successfully",
       });
 
-      queryClient.invalidateQueries(['tasks', entityType, entityId]);
+      queryClient.invalidateQueries({
+        queryKey: ['tasks', entityType, entityId]
+      });
+      
       onSuccess?.();
     } catch (error) {
       console.error('Error creating task:', error);
