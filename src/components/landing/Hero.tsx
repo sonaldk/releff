@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 export const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
       <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -13,11 +15,12 @@ export const Hero = () => {
             Streamline your customer relationships, track deals, and boost engagement with our intelligent CRM platform.
           </p>
           <div className="pt-4">
-            <Link to="/auth">
-              <Button size="lg" className="text-lg px-8 hover:scale-105 transition-transform duration-200">
-                Get Started
-              </Button>
-            </Link>
+            ="lg" 
+              className="text-lg px-8 hover:scale-105 transition-transform duration-200"
+              onClick={() => navigate("/auth")}
+            >
+              Get Started
+            </Button>
           </div>
         </div>
         <div className="hidden lg:block animate-fade-in [animation-delay:400ms]">
