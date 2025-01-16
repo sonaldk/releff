@@ -34,7 +34,7 @@ const ClientDetail = () => {
                 <p className="text-sm text-gray-500">Risk Reason</p>
                 <p className="font-medium">{clientData.reason}</p>
               </div>
-              {clientData.details && (
+              {'details' in clientData && clientData.details && (
                 <div>
                   <p className="text-sm text-gray-500">Details</p>
                   <p className="font-medium">{clientData.details}</p>
