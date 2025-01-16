@@ -78,3 +78,24 @@ export const clientsList = [
     health: "At Risk"
   }
 ];
+
+// Define the type for the client data
+export type ClientData = {
+  name: string;
+  status: string;
+  reason: string;
+  details?: string;
+  lastEngagement?: string;
+  amount?: string;
+  industry: string;
+  revenue: string;
+  employees: number;
+  contacts: number;
+  activeDeals: number;
+  riskMetrics: {
+    engagementScore: string;
+    churnProbability: string;
+    lastMeeting: string;
+    openTickets: number;
+  };
+};

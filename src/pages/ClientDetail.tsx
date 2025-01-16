@@ -3,13 +3,14 @@ import { ArrowLeft, Building2, Users, DollarSign, AlertTriangle, Activity, Ticke
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { mockClients } from "@/data/mockClients";
+import type { ClientData } from "@/data/mockClients";
 import { useNavigate } from "react-router-dom";
 
 const ClientDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   
-  const clientData = id ? mockClients[id as keyof typeof mockClients] : null;
+  const clientData = id ? mockClients[id as keyof typeof mockClients] as ClientData : null;
 
   if (!clientData) {
     return (
@@ -57,13 +58,13 @@ const ClientDetail = () => {
                 <p className="text-sm text-gray-500">Risk Reason</p>
                 <p className="font-medium">{clientData.reason}</p>
               </div>
-              {'details' in clientData && clientData.details && (
+              {clientData.details && (
                 <div>
                   <p className="text-sm text-gray-500">Details</p>
                   <p className="font-medium">{clientData.details}</p>
                 </div>
               )}
-              {'lastEngagement' in clientData && clientData.lastEngagement && (
+              {clientData.lastEngagement && (
                 <div>
                   <p className="text-sm text-gray-500">Last Engagement</p>
                   <p className="font-medium">{clientData.lastEngagement}</p>
