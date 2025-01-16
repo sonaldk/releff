@@ -12,12 +12,14 @@ import {
   ChevronRight,
   Menu,
   X,
+  DollarSign,
 } from "lucide-react";
 
 const navItems = [
   { path: "/", label: "Dashboard", icon: LayoutDashboard },
   { path: "/organisation", label: "Organisation", icon: Building2 },
   { path: "/people", label: "People", icon: Users },
+  { path: "/deals", label: "Deals", icon: DollarSign },
   { path: "/ask-ai", label: "Ask AI", icon: MessageSquareMore },
   { path: "/integrations", label: "Integrations", icon: Cable },
 ];
