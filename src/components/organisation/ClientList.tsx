@@ -18,8 +18,14 @@ export const ClientList = ({ clients }: ClientListProps) => {
   const navigate = useNavigate();
 
   const handleRowClick = (clientName: string) => {
-    // Convert client name to kebab case for URL
-    const clientId = clientName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    // Convert client name to kebab case for URL and ensure it matches the database keys
+    const clientId = clientName
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '')
+      .replace(/[^a-z0-9-]/g, '');
+    
+    console.log('Navigating to client:', clientId); // Debug log
     navigate(`/dashboard/client/${clientId}`);
   };
 
