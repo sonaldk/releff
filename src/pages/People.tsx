@@ -3,7 +3,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Users, Mail, PhoneCall, Building } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-// Mock data for demonstration
 const summaryData = {
   totalContacts: 850,
   activeEngagements: 245,
@@ -115,10 +114,8 @@ const People = () => {
   const navigate = useNavigate();
 
   const handleRowClick = (name: string) => {
-    // Convert contact name to URL-friendly format and ensure it matches the mock data keys
     const contactId = name.toLowerCase().replace(/\s+/g, '-');
-    console.log('Navigating to contact:', contactId); // Debug log
-    navigate(`/contact/${contactId}`);
+    navigate(`/dashboard/contact/${contactId}`);
   };
 
   return (
