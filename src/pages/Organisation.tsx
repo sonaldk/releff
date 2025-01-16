@@ -1,7 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Building2, Users, DollarSign } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { SummaryCard } from "@/components/dashboard/SummaryCards";
+import { ClientList } from "@/components/organisation/ClientList";
 
 // Mock data for demonstration
 const summaryData = {
@@ -93,110 +92,37 @@ const clientsData = [
   },
 ];
 
-const getHealthColor = (health: string) => {
-  const colors = {
-    Excellent: "text-green-600 bg-green-100",
-    Good: "text-blue-600 bg-blue-100",
-    "At Risk": "text-red-600 bg-red-100",
-  };
-  return colors[health as keyof typeof colors] || "text-gray-600 bg-gray-100";
-};
-
-const formatCurrency = (amount: number) => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(amount);
-};
-
 const Organisation = () => {
-  const navigate = useNavigate();
-
-  const handleRowClick = (clientName: string) => {
-    // Convert client name to URL-friendly format for the ID
-    const clientId = clientName.toLowerCase().replace(/\s+/g, '-');
-    navigate(`/client/${clientId}`);
-  };
-
   return (
     <div className="flex-1 p-8 bg-gray-50">
       <h1 className="text-4xl font-semibold mb-6">Organisation</h1>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <Card className="glass-effect">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xl font-medium">Total Clients</CardTitle>
-            <Building2 className="h-5 w-5 text-gray-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold">{summaryData.totalClients}</div>
-          </CardContent>
-        </Card>
-
-        <Card className="glass-effect">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xl font-medium">Total Deals</CardTitle>
-            <Users className="h-5 w-5 text-gray-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold">{summaryData.totalDeals}</div>
-          </CardContent>
-        </Card>
-
-        <Card className="glass-effect">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xl font-medium">Total Revenue</CardTitle>
-            <DollarSign className="h-5 w-5 text-gray-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold">{formatCurrency(summaryData.totalRevenue)}</div>
-          </CardContent>
-        </Card>
+        <SummaryCard
+          title="Total Clients"
+          value={summaryData.totalClients}
+          Icon={Building2}
+        />
+        <SummaryCard
+          title="Total Deals"
+          value={summaryData.totalDeals}
+          Icon={Users}
+        />
+        <SummaryCard
+          title="Total Revenue"
+          value={new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+          }).format(summaryData.totalRevenue)}
+          Icon={DollarSign}
+        />
       </div>
 
       {/* Clients Table */}
-      <Card className="glass-effect">
-        <CardHeader>
-          <CardTitle>Client List</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Client Name</TableHead>
-                <TableHead>Employees</TableHead>
-                <TableHead>Website</TableHead>
-                <TableHead>Deals Closed</TableHead>
-                <TableHead>Total Revenue</TableHead>
-                <TableHead>Client Health</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {clientsData.map((client, index) => (
-                <TableRow 
-                  key={index}
-                  className="cursor-pointer hover:bg-gray-50"
-                  onClick={() => handleRowClick(client.name)}
-                >
-                  <TableCell className="font-medium">{client.name}</TableCell>
-                  <TableCell>{client.employees}</TableCell>
-                  <TableCell>{client.website}</TableCell>
-                  <TableCell>{client.dealsCount}</TableCell>
-                  <TableCell>{formatCurrency(client.revenue)}</TableCell>
-                  <TableCell>
-                    <span className={`px-2 py-1 rounded-full text-sm ${getHealthColor(client.health)}`}>
-                      {client.health}
-                    </span>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+      <ClientList clients={clientsData} />
     </div>
   );
 };
