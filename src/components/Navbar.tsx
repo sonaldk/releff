@@ -16,12 +16,12 @@ import {
 } from "lucide-react";
 
 const navItems = [
-  { path: "/", label: "Dashboard", icon: LayoutDashboard },
-  { path: "/organisation", label: "Organisation", icon: Building2 },
-  { path: "/people", label: "People", icon: Users },
-  { path: "/deals", label: "Deals", icon: DollarSign },
-  { path: "/ask-ai", label: "Ask AI", icon: MessageSquareMore },
-  { path: "/integrations", label: "Integrations", icon: Cable },
+  { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { path: "/dashboard/organisation", label: "Organisation", icon: Building2 },
+  { path: "/dashboard/people", label: "People", icon: Users },
+  { path: "/dashboard/deals", label: "Deals", icon: DollarSign },
+  { path: "/dashboard/ask-ai", label: "Ask AI", icon: MessageSquareMore },
+  { path: "/dashboard/integrations", label: "Integrations", icon: Cable },
 ];
 
 export const Navbar = () => {
