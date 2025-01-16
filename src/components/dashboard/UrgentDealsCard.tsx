@@ -3,19 +3,17 @@ import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
 
 interface UrgentDeal {
-  id: string;
   name: string;
   status: string;
   amount: string;
 }
 
 const urgentDeals = [
-  { id: "enterprise-software", name: "Enterprise Solution Deal", status: "delayed", amount: "$150,000" },
-  { id: "cloud-migration", name: "Cloud Migration Project", status: "pending_approval", amount: "$80,000" },
-  { id: "security-suite", name: "Security Suite Upgrade", status: "at_risk", amount: "$95,000" },
+  { name: "Enterprise Solution Deal", status: "delayed", amount: "$150,000" },
+  { name: "Cloud Migration Project", status: "pending_approval", amount: "$80,000" },
+  { name: "Security Suite Upgrade", status: "at_risk", amount: "$95,000" },
 ];
 
 const getStatusColor = (status: string) => {
@@ -28,12 +26,6 @@ const getStatusColor = (status: string) => {
 };
 
 export const UrgentDealsCard = () => {
-  const navigate = useNavigate();
-
-  const handleDealClick = (dealId: string) => {
-    navigate(`/dashboard/deal/${dealId}`);
-  };
-
   return (
     <Card className="glass-effect">
       <CardHeader>
@@ -41,12 +33,8 @@ export const UrgentDealsCard = () => {
       </CardHeader>
       <CardContent>
         <ScrollArea className="h-[200px]">
-          {urgentDeals.map((deal) => (
-            <div
-              key={deal.id}
-              onClick={() => handleDealClick(deal.id)}
-              className="flex items-center justify-between mb-4 p-3 rounded-lg hover:bg-blue-50/80 hover:backdrop-blur-sm cursor-pointer transition-all duration-200"
-            >
+          {urgentDeals.map((deal, index) => (
+            <div key={index} className="flex items-center justify-between mb-4">
               <div>
                 <p className="font-medium">{deal.name}</p>
                 <p className="text-sm text-gray-500">{deal.amount}</p>
@@ -66,12 +54,8 @@ export const UrgentDealsCard = () => {
               <DialogTitle>Urgent Deals Details</DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
-              {urgentDeals.map((deal) => (
-                <div
-                  key={deal.id}
-                  onClick={() => handleDealClick(deal.id)}
-                  className="p-4 border rounded-lg hover:bg-blue-50/80 hover:backdrop-blur-sm cursor-pointer transition-all duration-200"
-                >
+              {urgentDeals.map((deal, index) => (
+                <div key={index} className="p-4 border rounded-lg">
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="font-semibold">{deal.name}</h3>
                     <Badge className={getStatusColor(deal.status)}>

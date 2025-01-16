@@ -64,15 +64,15 @@ function App() {
                   <Navbar />
                   <div className={`flex-1 ${isMobile ? 'w-full' : ''}`}>
                     <Routes>
-                      <Route index element={<Index />} />
-                      <Route path="organisation" element={<Organisation />} />
-                      <Route path="people" element={<People />} />
-                      <Route path="ask-ai" element={<AskAI />} />
-                      <Route path="integrations" element={<Integrations />} />
-                      <Route path="deals" element={<Deals />} />
-                      <Route path="deal/:id" element={<DealDetail />} />
-                      <Route path="client/:id" element={<ClientDetail />} />
-                      <Route path="contact/:id" element={<ContactDetail />} />
+                      <Route path="/" element={<Index />} />
+                      <Route path="/organisation" element={<Organisation />} />
+                      <Route path="/people" element={<People />} />
+                      <Route path="/ask-ai" element={<AskAI />} />
+                      <Route path="/integrations" element={<Integrations />} />
+                      <Route path="/deals" element={<Deals />} />
+                      <Route path="/deal/:id" element={<DealDetail />} />
+                      <Route path="/client/:id" element={<ClientDetail />} />
+                      <Route path="/contact/:id" element={<ContactDetail />} />
                     </Routes>
                   </div>
                 </div>
