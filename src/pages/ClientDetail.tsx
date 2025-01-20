@@ -51,10 +51,7 @@ const ClientDetail = () => {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="lg:col-span-4"
             >
-              <ClientCommunication 
-                emails={clientData.emails}
-                engagementHistory={clientData.engagementHistory}
-              />
+              <ClientCommunication emails={clientData.emails} />
             </motion.div>
           </div>
 

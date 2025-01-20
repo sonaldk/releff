@@ -1,5 +1,4 @@
 import { ContactEngagementMetrics } from "@/components/contact/ContactEngagementMetrics";
-import { EngagementCharts } from "@/components/contact/EngagementCharts";
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
