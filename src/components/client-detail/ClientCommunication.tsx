@@ -10,12 +10,6 @@ interface ClientCommunicationProps {
     from: string;
     hasAttachment: boolean;
   }>;
-  engagementHistory: Array<{
-    month: string;
-    score: number;
-    meetings: number;
-    responses: number;
-  }>;
 }
 
 export const ClientCommunication = ({ emails }: ClientCommunicationProps) => {
