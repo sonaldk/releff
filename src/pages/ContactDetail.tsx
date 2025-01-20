@@ -2,6 +2,10 @@ import { useParams } from "react-router-dom";
 import { ContactHeader } from "@/components/contact/ContactHeader";
 import { ContactEngagementMetrics } from "@/components/contact/ContactEngagementMetrics";
 import { RecentEmails } from "@/components/contact/RecentEmails";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Button } from "@/components/ui/button";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import { useState } from "react";
 
 const mockContactData = {
   "john-smith": {
@@ -204,37 +208,91 @@ const mockContactData = {
 const ContactDetail = () => {
   const { id } = useParams();
   const contact = mockContactData[id as keyof typeof mockContactData];
+  const [openSections, setOpenSections] = useState({
+    metrics: true,
+    communications: true,
+  });
+
+  const toggleSection = (section: keyof typeof openSections) => {
+    setOpenSections(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }));
+  };
 
   if (!contact) {
     return <div>Contact not found</div>;
   }
 
+  const CardWrapper = ({
+    children,
+    section,
+    title,
+  }: {
+    children: React.ReactNode;
+    section: keyof typeof openSections;
+    title: string;
+  }) => (
+    <Collapsible open={openSections[section]} className="w-full">
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="text-lg font-medium">{title}</h3>
+        <CollapsibleTrigger asChild>
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={() => toggleSection(section)}
+            className="hover:bg-gray-100"
+          >
+            {openSections[section] ? (
+              <ChevronUp className="h-3 w-3" />
+            ) : (
+              <ChevronDown className="h-3 w-3" />
+            )}
+          </Button>
+        </CollapsibleTrigger>
+      </div>
+      <CollapsibleContent>
+        {children}
+      </CollapsibleContent>
+    </Collapsible>
+  );
+
   return (
-    <div className="flex-1 p-8 bg-gray-50">
-      <ContactHeader
-        name={contact.name}
-        organization={contact.organization}
-        email={contact.email}
-        phone={contact.phone}
-        lastContact={contact.lastContact}
-      />
+    <div className="relative min-h-screen w-full bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
+      
+      <div className="relative">
+        <div className="p-4 md:p-6 lg:p-8 space-y-6 max-w-[1600px] mx-auto">
+          <ContactHeader
+            name={contact.name}
+            organization={contact.organization}
+            email={contact.email}
+            phone={contact.phone}
+            lastContact={contact.lastContact}
+          />
 
-      <ContactEngagementMetrics
-        lastMeeting={contact.lastMeeting}
-        lastContactPerson={contact.lastContactPerson}
-        engagementScore={contact.engagementScore}
-        sentiment={contact.sentiment}
-        influence={contact.influence}
-        organizationContact={contact.organizationContact}
-        riskIndex={contact.riskIndex}
-        customerSatisfaction={contact.customerSatisfaction}
-        deepestRelationship={contact.deepestRelationship}
-        broadestRelationship={contact.broadestRelationship}
-        relationshipScore={contact.relationshipScore}
-        interactionMetrics={contact.interactionMetrics}
-      />
+          <CardWrapper section="metrics" title="Engagement Metrics">
+            <ContactEngagementMetrics
+              lastMeeting={contact.lastMeeting}
+              lastContactPerson={contact.lastContactPerson}
+              engagementScore={contact.engagementScore}
+              sentiment={contact.sentiment}
+              influence={contact.influence}
+              organizationContact={contact.organizationContact}
+              riskIndex={contact.riskIndex}
+              customerSatisfaction={contact.customerSatisfaction}
+              deepestRelationship={contact.deepestRelationship}
+              broadestRelationship={contact.broadestRelationship}
+              relationshipScore={contact.relationshipScore}
+              interactionMetrics={contact.interactionMetrics}
+            />
+          </CardWrapper>
 
-      <RecentEmails emails={contact.recentEmails} />
+          <CardWrapper section="communications" title="Recent Communications">
+            <RecentEmails emails={contact.recentEmails} />
+          </CardWrapper>
+        </div>
+      </div>
     </div>
   );
 };
