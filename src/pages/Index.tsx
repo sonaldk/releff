@@ -5,7 +5,7 @@ import { RecentActivitiesCard } from "@/components/dashboard/RecentActivitiesCar
 import { LastWeekRecapCard } from "@/components/dashboard/LastWeekRecapCard";
 import { ThisWeekOutlookCard } from "@/components/dashboard/ThisWeekOutlookCard";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -38,14 +38,19 @@ const Index = () => {
     section: keyof typeof openSections;
     isOpen: boolean;
   }) => (
-    <div className="flex items-center justify-between mb-4">
-      <h2 className="text-2xl font-semibold">{title}</h2>
+    <div className="flex items-center justify-between mb-6 bg-white/50 p-4 rounded-lg backdrop-blur-sm border border-white/20 shadow-sm">
+      <div className="flex items-center gap-2">
+        <Sparkles className="h-6 w-6 text-purple-500" />
+        <h2 className="text-2xl font-semibold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+          {title}
+        </h2>
+      </div>
       <CollapsibleTrigger asChild>
         <Button 
           variant="ghost" 
           size="sm"
           onClick={() => toggleSection(section)}
-          className="hover:bg-gray-100"
+          className="hover:bg-white/50 transition-colors"
         >
           {isOpen ? (
             <ChevronUp className="h-4 w-4" />
@@ -68,13 +73,13 @@ const Index = () => {
   }) => (
     <Collapsible open={openSections[section]} className="w-full">
       <div className="flex items-center justify-between mb-2">
-        <h3 className="text-lg font-medium">{title}</h3>
+        <h3 className="text-lg font-medium text-gray-700">{title}</h3>
         <CollapsibleTrigger asChild>
           <Button 
             variant="ghost" 
             size="sm"
             onClick={() => toggleSection(section)}
-            className="hover:bg-gray-100"
+            className="hover:bg-white/50 transition-colors"
           >
             {openSections[section] ? (
               <ChevronUp className="h-3 w-3" />
@@ -85,69 +90,83 @@ const Index = () => {
         </CollapsibleTrigger>
       </div>
       <CollapsibleContent>
-        {children}
+        <div className="transform transition-all duration-200 hover:scale-[1.01]">
+          {children}
+        </div>
       </CollapsibleContent>
     </Collapsible>
   );
 
   return (
-    <div className="flex-1 p-8 bg-gray-50 space-y-8">
-      <h1 className="text-4xl font-semibold mb-6">Dashboard</h1>
+    <div className="relative min-h-screen w-full bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      {/* Grid pattern overlay */}
+      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
       
-      <div className="space-y-8">
-        <Collapsible open={openSections.row1}>
-          <SectionHeader 
-            title="Critical Updates" 
-            section="row1"
-            isOpen={openSections.row1}
-          />
-          <CollapsibleContent className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <CardWrapper section="urgentDeals" title="Urgent Deals">
-                <UrgentDealsCard />
-              </CardWrapper>
-              <CardWrapper section="accountsAtRisk" title="Accounts at Risk">
-                <AccountsAtRiskCard />
-              </CardWrapper>
-            </div>
-          </CollapsibleContent>
-        </Collapsible>
+      <div className="relative">
+        <div className="p-4 md:p-6 lg:p-8 space-y-8 max-w-[1600px] mx-auto">
+          <div className="flex items-center gap-3 mb-8">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              Dashboard
+            </h1>
+            <Sparkles className="h-8 w-8 text-purple-500 animate-pulse" />
+          </div>
+          
+          <div className="space-y-8">
+            <Collapsible open={openSections.row1}>
+              <SectionHeader 
+                title="Critical Updates" 
+                section="row1"
+                isOpen={openSections.row1}
+              />
+              <CollapsibleContent className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <CardWrapper section="urgentDeals" title="Urgent Deals">
+                    <UrgentDealsCard />
+                  </CardWrapper>
+                  <CardWrapper section="accountsAtRisk" title="Accounts at Risk">
+                    <AccountsAtRiskCard />
+                  </CardWrapper>
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
 
-        <Collapsible open={openSections.row2}>
-          <SectionHeader 
-            title="Tasks & Activities" 
-            section="row2"
-            isOpen={openSections.row2}
-          />
-          <CollapsibleContent className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <CardWrapper section="taskReminders" title="Task Reminders">
-                <TaskRemindersCard />
-              </CardWrapper>
-              <CardWrapper section="recentActivities" title="Recent Activities">
-                <RecentActivitiesCard />
-              </CardWrapper>
-            </div>
-          </CollapsibleContent>
-        </Collapsible>
+            <Collapsible open={openSections.row2}>
+              <SectionHeader 
+                title="Tasks & Activities" 
+                section="row2"
+                isOpen={openSections.row2}
+              />
+              <CollapsibleContent className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <CardWrapper section="taskReminders" title="Task Reminders">
+                    <TaskRemindersCard />
+                  </CardWrapper>
+                  <CardWrapper section="recentActivities" title="Recent Activities">
+                    <RecentActivitiesCard />
+                  </CardWrapper>
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
 
-        <Collapsible open={openSections.row3}>
-          <SectionHeader 
-            title="Performance Overview" 
-            section="row3"
-            isOpen={openSections.row3}
-          />
-          <CollapsibleContent className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <CardWrapper section="lastWeekRecap" title="Last Week Recap">
-                <LastWeekRecapCard />
-              </CardWrapper>
-              <CardWrapper section="thisWeekOutlook" title="This Week Outlook">
-                <ThisWeekOutlookCard />
-              </CardWrapper>
-            </div>
-          </CollapsibleContent>
-        </Collapsible>
+            <Collapsible open={openSections.row3}>
+              <SectionHeader 
+                title="Performance Overview" 
+                section="row3"
+                isOpen={openSections.row3}
+              />
+              <CollapsibleContent className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <CardWrapper section="lastWeekRecap" title="Last Week Recap">
+                    <LastWeekRecapCard />
+                  </CardWrapper>
+                  <CardWrapper section="thisWeekOutlook" title="This Week Outlook">
+                    <ThisWeekOutlookCard />
+                  </CardWrapper>
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
+          </div>
+        </div>
       </div>
     </div>
   );
