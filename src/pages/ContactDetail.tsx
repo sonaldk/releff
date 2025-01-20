@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { ContactHeader } from "@/components/contact/ContactHeader";
 import { ContactEngagementMetrics } from "@/components/contact/ContactEngagementMetrics";
 import { RecentEmails } from "@/components/contact/RecentEmails";
-import { EngagementCharts } from "@/components/contact/EngagementCharts";
 
 // Mock data for demonstration
 const mockContactData = {
@@ -237,8 +236,6 @@ const ContactDetail = () => {
       />
 
       <RecentEmails emails={contact.recentEmails} />
-
-      <EngagementCharts engagementHistory={contact.engagementHistory} />
     </div>
   );
 };
