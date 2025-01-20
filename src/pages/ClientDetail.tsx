@@ -6,6 +6,17 @@ import { ClientCommunication } from "@/components/client-detail/ClientCommunicat
 import { clientsDatabase } from "@/data/clientsDatabase";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
+import { 
+  AreaChart, 
+  Area, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  ResponsiveContainer,
+  LineChart,
+  Line
+} from 'recharts';
 
 const ClientDetail = () => {
   const { id } = useParams();
