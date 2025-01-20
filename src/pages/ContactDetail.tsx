@@ -3,7 +3,6 @@ import { ContactHeader } from "@/components/contact/ContactHeader";
 import { ContactEngagementMetrics } from "@/components/contact/ContactEngagementMetrics";
 import { RecentEmails } from "@/components/contact/RecentEmails";
 
-// Mock data for demonstration
 const mockContactData = {
   "john-smith": {
     name: "John Smith",
