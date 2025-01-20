@@ -1,4 +1,6 @@
 import { ContactHeader } from "@/components/contact/ContactHeader";
+import { motion } from "framer-motion";
+import { Card } from "@/components/ui/card";
 
 interface ClientHeaderProps {
   clientData: {
@@ -12,12 +14,20 @@ interface ClientHeaderProps {
 
 export const ClientHeader = ({ clientData }: ClientHeaderProps) => {
   return (
-    <ContactHeader
-      name={clientData.organization}
-      organization={clientData.name}
-      email={clientData.email}
-      phone={clientData.phone}
-      lastContact={clientData.lastContact}
-    />
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <Card className="overflow-hidden backdrop-blur-sm bg-white/30 border-none shadow-xl">
+        <ContactHeader
+          name={clientData.organization}
+          organization={clientData.name}
+          email={clientData.email}
+          phone={clientData.phone}
+          lastContact={clientData.lastContact}
+        />
+      </Card>
+    </motion.div>
   );
 };
