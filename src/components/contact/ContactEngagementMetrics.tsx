@@ -2,6 +2,7 @@ import { memo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, Calendar, MessageSquare, TrendingUp, Heart, Gauge, AlertTriangle, SmilePlus, Link, Network, Handshake, PhoneCall } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 interface ContactMetricsProps {
   lastMeeting: string;
