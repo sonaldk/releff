@@ -14,6 +14,12 @@ const Index = () => {
     row1: true,
     row2: true,
     row3: true,
+    urgentDeals: true,
+    accountsAtRisk: true,
+    taskReminders: true,
+    recentActivities: true,
+    lastWeekRecap: true,
+    thisWeekOutlook: true,
   });
 
   const toggleSection = (section: keyof typeof openSections) => {
@@ -51,6 +57,39 @@ const Index = () => {
     </div>
   );
 
+  const CardWrapper = ({
+    children,
+    section,
+    title,
+  }: {
+    children: React.ReactNode;
+    section: keyof typeof openSections;
+    title: string;
+  }) => (
+    <Collapsible open={openSections[section]} className="w-full">
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="text-lg font-medium">{title}</h3>
+        <CollapsibleTrigger asChild>
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={() => toggleSection(section)}
+            className="hover:bg-gray-100"
+          >
+            {openSections[section] ? (
+              <ChevronUp className="h-3 w-3" />
+            ) : (
+              <ChevronDown className="h-3 w-3" />
+            )}
+          </Button>
+        </CollapsibleTrigger>
+      </div>
+      <CollapsibleContent>
+        {children}
+      </CollapsibleContent>
+    </Collapsible>
+  );
+
   return (
     <div className="flex-1 p-8 bg-gray-50 space-y-8">
       <h1 className="text-4xl font-semibold mb-6">Dashboard</h1>
@@ -64,8 +103,12 @@ const Index = () => {
           />
           <CollapsibleContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <UrgentDealsCard />
-              <AccountsAtRiskCard />
+              <CardWrapper section="urgentDeals" title="Urgent Deals">
+                <UrgentDealsCard />
+              </CardWrapper>
+              <CardWrapper section="accountsAtRisk" title="Accounts at Risk">
+                <AccountsAtRiskCard />
+              </CardWrapper>
             </div>
           </CollapsibleContent>
         </Collapsible>
@@ -78,8 +121,12 @@ const Index = () => {
           />
           <CollapsibleContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <TaskRemindersCard />
-              <RecentActivitiesCard />
+              <CardWrapper section="taskReminders" title="Task Reminders">
+                <TaskRemindersCard />
+              </CardWrapper>
+              <CardWrapper section="recentActivities" title="Recent Activities">
+                <RecentActivitiesCard />
+              </CardWrapper>
             </div>
           </CollapsibleContent>
         </Collapsible>
@@ -92,8 +139,12 @@ const Index = () => {
           />
           <CollapsibleContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <LastWeekRecapCard />
-              <ThisWeekOutlookCard />
+              <CardWrapper section="lastWeekRecap" title="Last Week Recap">
+                <LastWeekRecapCard />
+              </CardWrapper>
+              <CardWrapper section="thisWeekOutlook" title="This Week Outlook">
+                <ThisWeekOutlookCard />
+              </CardWrapper>
             </div>
           </CollapsibleContent>
         </Collapsible>
